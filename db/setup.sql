@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : gpms
+ Source Server         : G15
  Source Server Type    : MySQL
- Source Server Version : 80400
+ Source Server Version : 80400 (8.4.0)
  Source Host           : localhost:3306
- Source Schema         : gpms1
+ Source Schema         : gpms
 
  Target Server Type    : MySQL
- Target Server Version : 80400
+ Target Server Version : 80400 (8.4.0)
  File Encoding         : 65001
 
- Date: 02/07/2024 17:15:47
+ Date: 02/07/2024 22:50:20
 */
 
 SET NAMES utf8mb4;
@@ -24,17 +24,17 @@ DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file`  (
   `file_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `file_start` blob NOT NULL,
-  `upload_start_time` datetime(0) NULL DEFAULT NULL,
+  `upload_start_time` datetime NULL DEFAULT NULL,
   `file_translation` blob NOT NULL,
-  `upload_translation_time` datetime(0) NULL DEFAULT NULL,
+  `upload_translation_time` datetime NULL DEFAULT NULL,
   `file_outschool` blob NULL,
-  `upload_outschool_time` datetime(0) NULL DEFAULT NULL,
+  `upload_outschool_time` datetime NULL DEFAULT NULL,
   `file_mid` blob NOT NULL,
-  `upload_mid_time` datetime(0) NULL DEFAULT NULL,
+  `upload_mid_time` datetime NULL DEFAULT NULL,
   `result_mid` blob NOT NULL,
-  `upload_midresult_time` datetime(0) NULL DEFAULT NULL,
+  `upload_midresult_time` datetime NULL DEFAULT NULL,
   `file_defense` blob NOT NULL,
-  `upload_defense_time` datetime(0) NULL DEFAULT NULL,
+  `upload_defense_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`file_id`) USING BTREE,
   CONSTRAINT `file_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
@@ -94,7 +94,7 @@ CREATE TABLE `score`  (
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('111111111111', '-1', '-1', '-1', '90', NULL, '-1', '-1', '-1', '90', NULL, '-1', '-1', '-1', '90', NULL, '-1', '-1', '-1', '-1', '-1', '90', NULL, '90', NULL, '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '90', NULL, '-1', '');
+INSERT INTO `score` VALUES ('111111111111', '-1', '-1', '-1', '-1', NULL, '-1', '-1', '-1', '-1', NULL, '-1', '-1', '-1', '-1', NULL, '-1', '-1', '-1', '-1', '-1', '-1', NULL, '-1', NULL, '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', NULL, '-1', '');
 INSERT INTO `score` VALUES ('333333333333', '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '-1', '-1', '80', NULL, '90', NULL, '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '90', NULL, '-1', '');
 
 -- ----------------------------
@@ -111,7 +111,7 @@ CREATE TABLE `stu`  (
 -- ----------------------------
 -- Records of stu
 -- ----------------------------
-INSERT INTO `stu` VALUES ('111111111111', '1');
+INSERT INTO `stu` VALUES ('111111111111', '5');
 INSERT INTO `stu` VALUES ('333333333333', '3');
 
 -- ----------------------------
@@ -121,7 +121,7 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
   `teacher_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `teacher_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  INDEX `teacher_id`(`teacher_id`) USING BTREE,
+  INDEX `teacher_id`(`teacher_id` ASC) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
@@ -136,17 +136,17 @@ INSERT INTO `teacher` VALUES ('222222222222', '指导教师');
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `user_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_type` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_age` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_gender` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_tel` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_province` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_city` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_area` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_detailadd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `type` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `age` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `gender` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tel` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `province` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `city` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `area` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `detailAdd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_pic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
@@ -154,7 +154,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('111111111111', '学生', '11', '9', '男', '11111111111', '111', '111111', '111111', '111111', '111', '1111', '1');
+INSERT INTO `user` VALUES ('111111111111', '学生', '11', '9', '男', '11111111111', '111', '350000', '350100', '350104', '111', '2222234324234231221', '1');
 INSERT INTO `user` VALUES ('222222222222', '老师', 'qw', '10', '女', '11122223333', '222', '222222', '222222', '222222', '222', '2222', '2');
 INSERT INTO `user` VALUES ('333333333333', '学生', 'as', '20', '女', '22233334444', '333', '333333', '333333', '333333', '333', '3333', '3');
 INSERT INTO `user` VALUES ('444444444444', '老师', 'ffe', '30', '男', '33344445555', '444', '444444', '444444', '444444', '444', '4444', '4');
