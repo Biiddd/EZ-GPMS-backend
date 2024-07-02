@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : G15
+ Source Server         : gpms
  Source Server Type    : MySQL
- Source Server Version : 80400 (8.4.0)
+ Source Server Version : 80400
  Source Host           : localhost:3306
- Source Schema         : gpms
+ Source Schema         : gpms1
 
  Target Server Type    : MySQL
- Target Server Version : 80400 (8.4.0)
+ Target Server Version : 80400
  File Encoding         : 65001
 
- Date: 02/07/2024 14:51:53
+ Date: 02/07/2024 17:15:47
 */
 
 SET NAMES utf8mb4;
@@ -24,15 +24,17 @@ DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file`  (
   `file_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `file_start` blob NOT NULL,
-  `upload_start_time` datetime NULL DEFAULT NULL,
+  `upload_start_time` datetime(0) NULL DEFAULT NULL,
   `file_translation` blob NOT NULL,
-  `upload_translation_time` datetime NULL DEFAULT NULL,
+  `upload_translation_time` datetime(0) NULL DEFAULT NULL,
   `file_outschool` blob NULL,
-  `upload_outschool_time` datetime NULL DEFAULT NULL,
+  `upload_outschool_time` datetime(0) NULL DEFAULT NULL,
   `file_mid` blob NOT NULL,
-  `upload_mid_time` datetime NULL DEFAULT NULL,
+  `upload_mid_time` datetime(0) NULL DEFAULT NULL,
+  `result_mid` blob NOT NULL,
+  `upload_midresult_time` datetime(0) NULL DEFAULT NULL,
   `file_defense` blob NOT NULL,
-  `upload_defense_time` datetime NULL DEFAULT NULL,
+  `upload_defense_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`file_id`) USING BTREE,
   CONSTRAINT `file_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
@@ -40,8 +42,8 @@ CREATE TABLE `file`  (
 -- ----------------------------
 -- Records of file
 -- ----------------------------
-INSERT INTO `file` VALUES ('111111111111', 0x312E747874, NULL, 0x312E706466, NULL, NULL, NULL, 0x312E657865, NULL, 0x312E737373, NULL);
-INSERT INTO `file` VALUES ('333333333333', 0x332E747874, NULL, 0x332E706466, NULL, NULL, NULL, 0x332E657865, NULL, 0x332E737373, NULL);
+INSERT INTO `file` VALUES ('111111111111', 0x312E747874, NULL, 0x312E706466, NULL, NULL, NULL, 0x312E657865, NULL, '', NULL, 0x312E737373, NULL);
+INSERT INTO `file` VALUES ('333333333333', 0x332E747874, NULL, 0x332E706466, NULL, NULL, NULL, 0x332E657865, NULL, '', NULL, 0x332E737373, NULL);
 
 -- ----------------------------
 -- Table structure for score
@@ -119,7 +121,7 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
   `teacher_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `teacher_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  INDEX `teacher_id`(`teacher_id` ASC) USING BTREE,
+  INDEX `teacher_id`(`teacher_id`) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
@@ -147,7 +149,7 @@ CREATE TABLE `user`  (
   `user_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_pic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
