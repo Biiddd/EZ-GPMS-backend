@@ -9,6 +9,9 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.listen(33001, () => {
-    logger.info("服务启动成功, 监听端口 33001");
+const changePasswdRouter = require("./router/api/changePasswd");
+app.use(changePasswdRouter);
+
+app.listen(5174, () => {
+    logger.info("服务启动成功, 监听端口 5174");
 });
