@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 const changePasswdRouter = require("./router/api/changePasswd");
 app.use(changePasswdRouter);
 
+const scoreTableRouter = require("./router/api/scoreTable");
+app.use(scoreTableRouter);
+
+
 app.listen(5174, () => {
     logger.info("服务启动成功, 监听端口 5174");
 });
