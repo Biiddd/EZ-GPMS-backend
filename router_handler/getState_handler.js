@@ -13,7 +13,6 @@ exports.getInfo = (req, res) => {
         logger.info("获取学生状态成功");
         const userInfo = rows[0];
 
-        logger.info("userInfo: ", userInfo);
         res.status(200).json(userInfo);
     });
 };

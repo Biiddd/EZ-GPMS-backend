@@ -2,12 +2,7 @@ const db = require("../db/index");
 const logger = require("../modules/logger");
 
 exports.getInfo = (req, res) => {
-
     let {user_id} = req.body;
-
-    logger.info(req.body)
-
-    logger.info( user_id);
 
     const query = `SELECT * FROM user WHERE user_id = ?`;
 
@@ -19,8 +14,6 @@ exports.getInfo = (req, res) => {
         logger.info("获取信息成功");
         const userInfo = rows[0];
 
-
-        logger.info("userInfo: ", userInfo);
         res.status(200).json(userInfo);
     });
 };
