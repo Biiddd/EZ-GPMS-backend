@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : gpms
+ Source Server         : G15
  Source Server Type    : MySQL
- Source Server Version : 80400
+ Source Server Version : 80400 (8.4.0)
  Source Host           : localhost:3306
  Source Schema         : gpms
 
  Target Server Type    : MySQL
- Target Server Version : 80400
+ Target Server Version : 80400 (8.4.0)
  File Encoding         : 65001
 
- Date: 02/07/2024 11:21:19
+ Date: 02/07/2024 14:51:53
 */
 
 SET NAMES utf8mb4;
@@ -23,50 +23,77 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file`  (
   `file_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `file_start` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `file_translation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `file_outschool` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `file_mid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `file_defense` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `file_start` blob NOT NULL,
+  `upload_start_time` datetime NULL DEFAULT NULL,
+  `file_translation` blob NOT NULL,
+  `upload_translation_time` datetime NULL DEFAULT NULL,
+  `file_outschool` blob NULL,
+  `upload_outschool_time` datetime NULL DEFAULT NULL,
+  `file_mid` blob NOT NULL,
+  `upload_mid_time` datetime NULL DEFAULT NULL,
+  `file_defense` blob NOT NULL,
+  `upload_defense_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`file_id`) USING BTREE,
   CONSTRAINT `file_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of file
 -- ----------------------------
-INSERT INTO `file` VALUES ('111111111111', '1.txt', '1.pdf', NULL, '1.exe', '1.sss');
-INSERT INTO `file` VALUES ('333333333333', '3.txt', '3.pdf', NULL, '3.exe', '3.sss');
+INSERT INTO `file` VALUES ('111111111111', 0x312E747874, NULL, 0x312E706466, NULL, NULL, NULL, 0x312E657865, NULL, 0x312E737373, NULL);
+INSERT INTO `file` VALUES ('333333333333', 0x332E747874, NULL, 0x332E706466, NULL, NULL, NULL, 0x332E657865, NULL, 0x332E737373, NULL);
 
 -- ----------------------------
 -- Table structure for score
 -- ----------------------------
 DROP TABLE IF EXISTS `score`;
 CREATE TABLE `score`  (
-  `score_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `startScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `startEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `transScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `transEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `midScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `midEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `teachScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `teachEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `readScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `readEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `defScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `defEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `councilScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `councilEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `score_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `startScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '开题报告得分1',
+  `startScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '开题报告得分2',
+  `startScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '开题报告得分3',
+  `startScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '开题报告得分',
+  `startEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '开题报告评价',
+  `transScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分1',
+  `transScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分2',
+  `transScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分3',
+  `transScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分',
+  `transEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '外文翻译评价',
+  `midScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分1',
+  `midScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分2',
+  `midScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分3',
+  `midScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分',
+  `midEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '中期检查评价',
+  `teachScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分1',
+  `teachScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分2',
+  `teachScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分3',
+  `teachScore4` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分4',
+  `teachScore5` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分5',
+  `teachScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分',
+  `teachEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '指导老师评价',
+  `readScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分',
+  `readEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '评阅老师评价',
+  `readScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分1',
+  `readScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分2',
+  `readScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分3',
+  `readScore4` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分4',
+  `defScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分1',
+  `defScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分2',
+  `defScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分3',
+  `defScore4` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分4',
+  `defScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分',
+  `defEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '答辩评价',
+  `finalScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '总评成绩',
+  `finalEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '总评',
   PRIMARY KEY (`score_id`) USING BTREE,
   CONSTRAINT `score_ibfk_1` FOREIGN KEY (`score_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('111111111111', '90', NULL, '90', NULL, '90', NULL, '90', NULL, '90', NULL, '90', NULL, '90', '啥也不是');
-INSERT INTO `score` VALUES ('333333333333', '80', NULL, '80', NULL, '80', NULL, '80', NULL, '90', NULL, '90', NULL, '90', '牛');
+INSERT INTO `score` VALUES ('111111111111', '-1', '-1', '-1', '90', NULL, '-1', '-1', '-1', '90', NULL, '-1', '-1', '-1', '90', NULL, '-1', '-1', '-1', '-1', '-1', '90', NULL, '90', NULL, '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '90', NULL, '-1', '');
+INSERT INTO `score` VALUES ('333333333333', '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '-1', '-1', '80', NULL, '90', NULL, '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '90', NULL, '-1', '');
 
 -- ----------------------------
 -- Table structure for stu
@@ -77,7 +104,7 @@ CREATE TABLE `stu`  (
   `stu_states` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`stu_id`) USING BTREE,
   CONSTRAINT `stu_ibfk_1` FOREIGN KEY (`stu_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of stu
@@ -92,9 +119,9 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
   `teacher_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `teacher_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  INDEX `teacher_id`(`teacher_id`) USING BTREE,
+  INDEX `teacher_id`(`teacher_id` ASC) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of teacher
@@ -107,27 +134,27 @@ INSERT INTO `teacher` VALUES ('222222222222', '指导教师');
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `user_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_type` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_age` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_gender` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_tel` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_detailadd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_province` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_province` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_city` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_area` char(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_detailadd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_type` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_gender` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_pic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `user_age` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('111111111111', '11', '11111111111', '111', '111111', '111', '111111', '111111', '1111', '学生', '男', '1', '9');
-INSERT INTO `user` VALUES ('222222222222', 'qw', '11122223333', '222', '222222', '222', '222222', '222222', '2222', '老师', '女', '2', '10');
-INSERT INTO `user` VALUES ('333333333333', 'as', '22233334444', '333', '333333', '333', '333333', '333333', '3333', '学生', '女', '3', '20');
-INSERT INTO `user` VALUES ('444444444444', 'ffe', '33344445555', '444', '444444', '444', '444444', '444444', '4444', '老师', '男', '4', '30');
+INSERT INTO `user` VALUES ('111111111111', '学生', '11', '9', '男', '11111111111', '111', '111111', '111111', '111111', '111', '1111', '1');
+INSERT INTO `user` VALUES ('222222222222', '老师', 'qw', '10', '女', '11122223333', '222', '222222', '222222', '222222', '222', '2222', '2');
+INSERT INTO `user` VALUES ('333333333333', '学生', 'as', '20', '女', '22233334444', '333', '333333', '333333', '333333', '333', '3333', '3');
+INSERT INTO `user` VALUES ('444444444444', '老师', 'ffe', '30', '男', '33344445555', '444', '444444', '444444', '444444', '444', '4444', '4');
 
 SET FOREIGN_KEY_CHECKS = 1;
