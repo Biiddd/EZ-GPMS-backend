@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : G15
+ Source Server         : gpms
  Source Server Type    : MySQL
- Source Server Version : 80400 (8.4.0)
+ Source Server Version : 80400
  Source Host           : localhost:3306
- Source Schema         : gpms
+ Source Schema         : gpms1
 
  Target Server Type    : MySQL
- Target Server Version : 80400 (8.4.0)
+ Target Server Version : 80400
  File Encoding         : 65001
 
- Date: 02/07/2024 22:50:20
+ Date: 03/07/2024 14:14:40
 */
 
 SET NAMES utf8mb4;
@@ -24,17 +24,17 @@ DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file`  (
   `file_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `file_start` blob NOT NULL,
-  `upload_start_time` datetime NULL DEFAULT NULL,
+  `upload_start_time` datetime(0) NULL DEFAULT NULL,
   `file_translation` blob NOT NULL,
-  `upload_translation_time` datetime NULL DEFAULT NULL,
+  `upload_translation_time` datetime(0) NULL DEFAULT NULL,
   `file_outschool` blob NULL,
-  `upload_outschool_time` datetime NULL DEFAULT NULL,
+  `upload_outschool_time` datetime(0) NULL DEFAULT NULL,
   `file_mid` blob NOT NULL,
-  `upload_mid_time` datetime NULL DEFAULT NULL,
+  `upload_mid_time` datetime(0) NULL DEFAULT NULL,
   `result_mid` blob NOT NULL,
-  `upload_midresult_time` datetime NULL DEFAULT NULL,
+  `upload_midresult_time` datetime(0) NULL DEFAULT NULL,
   `file_defense` blob NOT NULL,
-  `upload_defense_time` datetime NULL DEFAULT NULL,
+  `upload_defense_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`file_id`) USING BTREE,
   CONSTRAINT `file_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
@@ -51,21 +51,24 @@ INSERT INTO `file` VALUES ('333333333333', 0x332E747874, NULL, 0x332E706466, NUL
 DROP TABLE IF EXISTS `score`;
 CREATE TABLE `score`  (
   `score_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `startScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '开题报告得分1',
-  `startScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '开题报告得分2',
-  `startScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '开题报告得分3',
-  `startScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '开题报告得分',
+  `startScore1` float(2, 0) NOT NULL DEFAULT -1 COMMENT '开题报告得分1',
+  `startScore2` float(2, 0) NOT NULL DEFAULT -1 COMMENT '开题报告得分2',
+  `startScore3` float(2, 0) NOT NULL DEFAULT -1 COMMENT '开题报告得分3',
+  `startScore` float(2, 0) NOT NULL DEFAULT -1 COMMENT '开题报告得分',
   `startEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '开题报告评价',
+  `start_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（开题打分）',
   `transScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分1',
   `transScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分2',
   `transScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分3',
   `transScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分',
   `transEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '外文翻译评价',
+  `trans_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '指导老师（外文翻译）',
   `midScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分1',
   `midScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分2',
   `midScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分3',
   `midScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分',
   `midEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '中期检查评价',
+  `mid_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（中期打分）',
   `teachScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分1',
   `teachScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分2',
   `teachScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分3',
@@ -73,29 +76,47 @@ CREATE TABLE `score`  (
   `teachScore5` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分5',
   `teachScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分',
   `teachEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '指导老师评价',
+  `teach_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '指导老师（终稿）',
   `readScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分',
   `readEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '评阅老师评价',
   `readScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分1',
   `readScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分2',
   `readScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分3',
   `readScore4` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分4',
+  `read_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '评阅老师（终稿评阅打分）',
   `defScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分1',
   `defScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分2',
   `defScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分3',
   `defScore4` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分4',
   `defScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分',
   `defEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '答辩评价',
+  `def_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（答辩打分）',
   `finalScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '总评成绩',
   `finalEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '总评',
+  `final_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '小组秘书（最终评价）',
   PRIMARY KEY (`score_id`) USING BTREE,
-  CONSTRAINT `score_ibfk_1` FOREIGN KEY (`score_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `start_id`(`start_id`) USING BTREE,
+  INDEX `trans_id`(`trans_id`) USING BTREE,
+  INDEX `mid_id`(`mid_id`) USING BTREE,
+  INDEX `teach_id`(`teach_id`) USING BTREE,
+  INDEX `read_id`(`read_id`) USING BTREE,
+  INDEX `def_id`(`def_id`) USING BTREE,
+  INDEX `final_id`(`final_id`) USING BTREE,
+  CONSTRAINT `score_ibfk_1` FOREIGN KEY (`score_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `score_ibfk_2` FOREIGN KEY (`start_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `score_ibfk_3` FOREIGN KEY (`trans_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `score_ibfk_4` FOREIGN KEY (`mid_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `score_ibfk_5` FOREIGN KEY (`teach_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `score_ibfk_6` FOREIGN KEY (`read_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `score_ibfk_7` FOREIGN KEY (`def_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `score_ibfk_8` FOREIGN KEY (`final_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('111111111111', '-1', '-1', '-1', '-1', NULL, '-1', '-1', '-1', '-1', NULL, '-1', '-1', '-1', '-1', NULL, '-1', '-1', '-1', '-1', '-1', '-1', NULL, '-1', NULL, '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', NULL, '-1', '');
-INSERT INTO `score` VALUES ('333333333333', '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '80', NULL, '-1', '-1', '-1', '-1', '-1', '80', NULL, '90', NULL, '-1', '-1', '-1', '-1', '-1', '-1', '-1', '-1', '90', NULL, '-1', '');
+INSERT INTO `score` VALUES ('111111111111', -1, -1, -1, -1, NULL, '111111111111', '-1', '-1', '-1', '-1', NULL, '222222222222', '-1', '-1', '-1', '-1', NULL, '111111111111', '-1', '-1', '-1', '-1', '-1', '-1', NULL, '222222222222', '-1', NULL, '-1', '-1', '-1', '-1', '333333333333', '-1', '-1', '-1', '-1', '-1', NULL, '111111111111', '-1', '', '444444444444');
+INSERT INTO `score` VALUES ('333333333333', -1, -1, -1, 80, NULL, '111111111111', '-1', '-1', '-1', '80', NULL, '222222222222', '-1', '-1', '-1', '80', NULL, '111111111111', '-1', '-1', '-1', '-1', '-1', '80', NULL, '222222222222', '90', NULL, '-1', '-1', '-1', '-1', '333333333333', '-1', '-1', '-1', '-1', '90', NULL, '111111111111', '-1', '', '444444444444');
 
 -- ----------------------------
 -- Table structure for stu
@@ -121,14 +142,18 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
   `teacher_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `teacher_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  INDEX `teacher_id`(`teacher_id` ASC) USING BTREE,
+  PRIMARY KEY (`teacher_id`) USING BTREE,
+  INDEX `teacher_id`(`teacher_id`) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
+INSERT INTO `teacher` VALUES ('111111111111', '组长');
 INSERT INTO `teacher` VALUES ('222222222222', '指导教师');
+INSERT INTO `teacher` VALUES ('333333333333', '评阅教师');
+INSERT INTO `teacher` VALUES ('444444444444', '小组秘书');
 
 -- ----------------------------
 -- Table structure for user
@@ -155,7 +180,7 @@ CREATE TABLE `user`  (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('111111111111', '学生', '11', '9', '男', '11111111111', '111', '350000', '350100', '350104', '111', '2222234324234231221', '1');
-INSERT INTO `user` VALUES ('222222222222', '老师', 'qw', '10', '女', '11122223333', '222', '222222', '222222', '222222', '222', '2222', '2');
+INSERT INTO `user` VALUES ('222222222222', '老师', 'qw', '10', '女', '11122223333', '222', '450000', '450500', '450502', '222', '2222', '2');
 INSERT INTO `user` VALUES ('333333333333', '学生', 'as', '20', '女', '22233334444', '333', '333333', '333333', '333333', '333', '3333', '3');
 INSERT INTO `user` VALUES ('444444444444', '老师', 'ffe', '30', '男', '33344445555', '444', '444444', '444444', '444444', '444', '4444', '4');
 
