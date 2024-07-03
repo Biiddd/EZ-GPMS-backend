@@ -25,12 +25,16 @@ app.use(getScoreRouter)
 const changePasswdRouter = require("./router/api/changePasswd");
 app.use(changePasswdRouter);
 
-const scoreTableRouter = require("./router/api/scoreTable");
-app.use(scoreTableRouter);
 
 // 获取学生信息
 const getStuListRouter = require("./router/api/getStuList");
 app.use(getStuListRouter);
+
+
+// 上传说明书和指导书
+const uploadAskRouter = require("./router/api/uploadAsk");
+app.use(uploadAskRouter);
+
 
 app.listen(5174, () => {
     logger.info("服务启动成功, 监听端口 5174");
