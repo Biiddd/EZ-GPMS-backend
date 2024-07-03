@@ -11,7 +11,7 @@
  Target Server Version : 80400
  File Encoding         : 65001
 
- Date: 03/07/2024 14:14:40
+ Date: 03/07/2024 14:32:09
 */
 
 SET NAMES utf8mb4;
@@ -51,47 +51,45 @@ INSERT INTO `file` VALUES ('333333333333', 0x332E747874, NULL, 0x332E706466, NUL
 DROP TABLE IF EXISTS `score`;
 CREATE TABLE `score`  (
   `score_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `startScore1` float(2, 0) NOT NULL DEFAULT -1 COMMENT '开题报告得分1',
-  `startScore2` float(2, 0) NOT NULL DEFAULT -1 COMMENT '开题报告得分2',
-  `startScore3` float(2, 0) NOT NULL DEFAULT -1 COMMENT '开题报告得分3',
-  `startScore` float(2, 0) NOT NULL DEFAULT -1 COMMENT '开题报告得分',
-  `startEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '开题报告评价',
+  `startScore1` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '开题报告得分1',
+  `startScore2` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '开题报告得分2',
+  `startScore3` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '开题报告得分3',
+  `startScore` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '开题报告得分',
   `start_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（开题打分）',
-  `transScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分1',
-  `transScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分2',
-  `transScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分3',
-  `transScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '外文翻译得分',
-  `transEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '外文翻译评价',
+  `transScore1` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '外文翻译得分1',
+  `transScore2` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '外文翻译得分2',
+  `transScore3` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '外文翻译得分3',
+  `transScore` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '外文翻译得分',
   `trans_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '指导老师（外文翻译）',
-  `midScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分1',
-  `midScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分2',
-  `midScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分3',
-  `midScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '中期检查得分',
+  `midScore1` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '中期检查得分1',
+  `midScore2` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '中期检查得分2',
+  `midScore3` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '中期检查得分3',
+  `midScore` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '中期检查得分',
   `midEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '中期检查评价',
   `mid_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（中期打分）',
-  `teachScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分1',
-  `teachScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分2',
-  `teachScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分3',
-  `teachScore4` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分4',
-  `teachScore5` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分5',
-  `teachScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '指导老师打分',
+  `teachScore1` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '指导老师打分1',
+  `teachScore2` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '指导老师打分2',
+  `teachScore3` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '指导老师打分3',
+  `teachScore4` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '指导老师打分4',
+  `teachScore5` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '指导老师打分5',
+  `teachScore` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '指导老师打分',
   `teachEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '指导老师评价',
   `teach_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '指导老师（终稿）',
-  `readScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分',
+  `readScore1` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '评阅老师打分1',
+  `readScore2` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '评阅老师打分2',
+  `readScore3` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '评阅老师打分3',
+  `readScore4` float(2, 1) NOT NULL DEFAULT -1.0 COMMENT '评阅老师打分4',
+  `readScore` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '评阅老师打分',
   `readEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '评阅老师评价',
-  `readScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分1',
-  `readScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分2',
-  `readScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分3',
-  `readScore4` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '评阅老师打分4',
   `read_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '评阅老师（终稿评阅打分）',
-  `defScore1` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分1',
-  `defScore2` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分2',
-  `defScore3` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分3',
-  `defScore4` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分4',
-  `defScore` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '答辩得分',
+  `defScore1` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '答辩得分1',
+  `defScore2` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '答辩得分2',
+  `defScore3` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '答辩得分3',
+  `defScore4` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '答辩得分4',
+  `defScore` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '答辩得分',
   `defEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '答辩评价',
   `def_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（答辩打分）',
-  `finalScore` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '-1' COMMENT '总评成绩',
+  `finalScore` float(3, 1) NOT NULL DEFAULT -1.0 COMMENT '总评成绩',
   `finalEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '总评',
   `final_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '小组秘书（最终评价）',
   PRIMARY KEY (`score_id`) USING BTREE,
@@ -115,8 +113,8 @@ CREATE TABLE `score`  (
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('111111111111', -1, -1, -1, -1, NULL, '111111111111', '-1', '-1', '-1', '-1', NULL, '222222222222', '-1', '-1', '-1', '-1', NULL, '111111111111', '-1', '-1', '-1', '-1', '-1', '-1', NULL, '222222222222', '-1', NULL, '-1', '-1', '-1', '-1', '333333333333', '-1', '-1', '-1', '-1', '-1', NULL, '111111111111', '-1', '', '444444444444');
-INSERT INTO `score` VALUES ('333333333333', -1, -1, -1, 80, NULL, '111111111111', '-1', '-1', '-1', '80', NULL, '222222222222', '-1', '-1', '-1', '80', NULL, '111111111111', '-1', '-1', '-1', '-1', '-1', '80', NULL, '222222222222', '90', NULL, '-1', '-1', '-1', '-1', '333333333333', '-1', '-1', '-1', '-1', '90', NULL, '111111111111', '-1', '', '444444444444');
+INSERT INTO `score` VALUES ('111111111111', -1.0, -1.0, -1.0, 5.0, '111111111111', -1.0, -1.0, -1.0, -1.0, '222222222222', -1.0, -1.0, -1.0, -1.0, NULL, '111111111111', -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, NULL, '222222222222', -1.0, -1.0, -1.0, -1.0, -1.0, NULL, '333333333333', -1.0, -1.0, -1.0, -1.0, -1.0, NULL, '111111111111', -1.0, '', '444444444444');
+INSERT INTO `score` VALUES ('333333333333', -1.0, -1.0, -1.0, 80.0, '111111111111', -1.0, -1.0, -1.0, 8.0, '222222222222', -1.0, -1.0, -1.0, 80.0, NULL, '111111111111', -1.0, -1.0, -1.0, -1.0, -1.0, 80.0, NULL, '222222222222', -1.0, -1.0, -1.0, -1.0, 9.0, NULL, '333333333333', -1.0, -1.0, -1.0, -1.0, 90.0, NULL, '111111111111', -1.0, '', '444444444444');
 
 -- ----------------------------
 -- Table structure for stu
