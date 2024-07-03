@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const getStuList_handler = require("../../router_handler/getStuList_handler");
+const getStuList_handler = require('../../router_handler/getStuList_handler');
 
-router.post("/api/teacher/getStuList", getStuList_handler.getStuList);
+router.post('/api/teacher/getStuList', getStuList_handler.getStuList);
 
-module.exports = router
+module.exports = router;
