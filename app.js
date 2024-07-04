@@ -37,6 +37,9 @@ app.use(getStuListRouter);
 const getGroupRouter = require('./router/api/getGroup');
 app.use(getGroupRouter);
 
+const uploadFinalRouter = require('./router/api/upload')
+app.use(uploadFinalRouter);
+
 // 上传说明书和指导书
 const uploadAskRouter = require('./router/api/uploadAsk');
 app.use(uploadAskRouter);
