@@ -11,7 +11,7 @@
  Target Server Version : 80400
  File Encoding         : 65001
 
- Date: 04/07/2024 09:45:04
+ Date: 04/07/2024 11:33:17
 */
 
 SET NAMES utf8mb4;
@@ -131,7 +131,7 @@ CREATE TABLE `score`  (
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-INSERT INTO `score` VALUES ('111111111111', NULL, NULL, NULL, NULL, '555555555555', NULL, NULL, NULL, NULL, '222222222222', NULL, NULL, NULL, NULL, NULL, '555555555555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '222222222222', NULL, NULL, NULL, NULL, NULL, NULL, '666666666666', NULL, NULL, NULL, NULL, NULL, NULL, '555555555555', NULL, '', '444444444444');
+INSERT INTO `score` VALUES ('111111111111', 1.0, 2.0, 2.0, 5.0, '555555555555', 1.0, 1.0, 4.0, 6.0, '222222222222', 1.0, 2.0, 3.0, 6.0, NULL, '555555555555', 2.0, 3.0, 1.0, 3.0, 2.0, 11.0, NULL, '222222222222', 1.0, 2.0, 1.0, 2.0, 6.0, NULL, '666666666666', 3.0, 2.0, 1.0, 1.0, 7.0, NULL, '555555555555', 41.0, '', '444444444444');
 INSERT INTO `score` VALUES ('333333333333', NULL, NULL, NULL, NULL, '555555555555', NULL, NULL, NULL, NULL, '222222222222', NULL, NULL, NULL, NULL, NULL, '555555555555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '222222222222', NULL, NULL, NULL, NULL, NULL, NULL, '666666666666', NULL, NULL, NULL, NULL, NULL, NULL, '555555555555', NULL, '', '444444444444');
 
 -- ----------------------------
@@ -240,5 +240,22 @@ INSERT INTO `user` VALUES ('333333333333', '学生', 'as', '20', '女', '2223333
 INSERT INTO `user` VALUES ('444444444444', '老师', 'ffe', '30', '男', '33344445555', '444', '444444', '444444', '444444', '444', '4444', '4');
 INSERT INTO `user` VALUES ('555555555555', '老师', 'dc', '40', '女', '44455556666', '555', '555555', '555555', '555555', '555', '5555', '5');
 INSERT INTO `user` VALUES ('666666666666', '老师', 'gr', '45', '男', '55566667777', '666', '666666', '666666', '666666', '666', '6666', '6');
+
+-- ----------------------------
+-- Triggers structure for table score
+-- ----------------------------
+DROP TRIGGER IF EXISTS `count`;
+delimiter ;;
+CREATE TRIGGER `count` BEFORE UPDATE ON `score` FOR EACH ROW BEGIN
+  SET NEW.transScore = NEW.transScore1 + NEW.transScore2 + NEW.transScore3;
+	SET NEW.startScore = NEW.startScore1 + NEW.startScore2 + NEW.startScore3;
+	SET NEW.midScore = NEW.midScore1 + NEW.midScore2 + NEW.midScore3;
+	SET NEW.teachScore = NEW.teachScore1 + NEW.teachScore2 + NEW.teachScore3+ NEW.teachScore4 + NEW.teachScore5;
+	SET NEW.readScore = NEW.readScore1 + NEW.readScore2 + NEW.readScore3+ NEW.readScore4;
+	SET NEW.defScore = NEW.defScore1 + NEW.defScore2 + NEW.defScore3+ NEW.defScore4;
+	SET NEW.finalScore = NEW.transScore +NEW.startScore + NEW.midScore + NEW.teachScore+ NEW.readScore+ NEW.defScore;
+END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
