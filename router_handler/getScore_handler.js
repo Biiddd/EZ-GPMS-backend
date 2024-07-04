@@ -14,7 +14,6 @@ exports.getScore = (req, res) => {
     }
     logger.info('获取成绩成功');
     const userInfo = rows[0];
-
     res.status(200).json(userInfo);
   });
 };
