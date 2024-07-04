@@ -29,6 +29,10 @@ app.use(changePasswdRouter);
 const getStuListRouter = require('./router/api/getStuList');
 app.use(getStuListRouter);
 
+// 获取分组情况
+const getGroupRouter = require('./router/api/getGroup');
+app.use(getGroupRouter);
+
 // 上传说明书和指导书
 const uploadAskRouter = require('./router/api/uploadAsk');
 app.use(uploadAskRouter);
