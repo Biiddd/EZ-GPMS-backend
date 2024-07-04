@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 
 // 获取信息
-const getInfoRouter = require('./router/api/getInfo');
+const getInfoRouter = require('./router/api/Info');
 app.use(getInfoRouter);
 
 // 获取状态
