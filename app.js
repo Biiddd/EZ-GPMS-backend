@@ -21,6 +21,10 @@ app.use(getStateRouter);
 const getScoreRouter = require('./router/api/getScore');
 app.use(getScoreRouter);
 
+// 更新成绩
+const updateScoreRouter = require('./router/api/updateScore');
+app.use(updateScoreRouter);
+
 // 修改密码
 const changePasswdRouter = require('./router/api/changePasswd');
 app.use(changePasswdRouter);
