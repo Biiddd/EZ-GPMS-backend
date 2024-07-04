@@ -8,7 +8,7 @@ exports.changePasswd = (req, res) => {
   logger.info('newPasswd: ', newPasswd);
 
   const query = `UPDATE user
-                 SET user_password = ?
+                 SET password = ?
                  WHERE user_id = ?`;
 
   db.query(query, [newPasswd, user_id], (err) => {
