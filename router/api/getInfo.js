@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const getInfoHandler = require('../../router_handler/getInfo_handler');
+const getInfo_handler = require('../../router_handler/getInfo_handler');
 
-router.post('/api/getInfo', getInfoHandler.getInfo);
+router.post('/api/getInfo', getInfo_handler.getInfo);
 
 module.exports = router;
