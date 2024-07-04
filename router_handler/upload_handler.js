@@ -1,42 +1,44 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const logger = require('../modules/logger');
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        // 使用 path.resolve 将相对路径解析为绝对路径
-        const uploadDir = path.resolve(__dirname, '../uploads/');
-        cb(null, uploadDir); // 存储路径，确保目录存在
-    },
-    filename: (req, file, cb) => {
-        // 生成文件名，使用当前时间戳和原始文件扩展名
-        cb(null, Date.now() + path.extname(file.originalname));
+  destination: (req, file, cb) => {
+    const { stu_id } = req.body;
+
+    // 设置文路径 uploads/stu_id
+    const uploadDir = path.resolve(__dirname, `../uploads/${stu_id}`);
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
     }
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const { filename } = req.body;
+    // 用 stu_id filename 重命名文件
+    const uniqueFilename = `${filename}${path.extname(file.originalname)}`;
+    cb(null, uniqueFilename);
+  }
 });
 
-// 创建 Multer 实例
 const upload = multer({ storage });
 
-// 处理单文件上传的处理函数
 exports.uploadSingle = (req, res) => {
-    upload.single('file')(req, res, (err) => {
-        if (err instanceof multer.MulterError) {
-            // A Multer error occurred when uploading
-            logger.error('上传文件时出错:', err);
-            return res.status(500).send('上传文件时出错');
-        } else if (err) {
-            // An unknown error occurred when uploading
-            logger.error('上传文件时出现未知错误:', err);
-            return res.status(500).send('上传文件时出现未知错误');
-        }
+  upload.single('file')(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      logger.error('上传文件时出错:', err);
+      return res.status(500).send('上传文件时出错');
+    } else if (err) {
+      logger.error('上传文件时出现未知错误:', err);
+      return res.status(500).send('上传文件时出现未知错误');
+    }
 
-        // 文件上传成功
-        const file = req.file;
-        if (!file) {
-            return res.status(400).send('未上传文件');
-        }
-        // 可以在这里处理上传成功的逻辑，如保存文件信息到数据库等
-        logger.info('文件上传成功:', file.filename);
-        res.status(200).send('文件上传成功');
-    });
+    const file = req.file;
+    if (!file) {
+      return res.status(400).send('未上传文件');
+    }
+    logger.info('文件上传成功:', file.filename);
+    res.status(200).send('文件上传成功');
+  });
 };
