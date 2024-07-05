@@ -11,7 +11,7 @@
  Target Server Version : 80400
  File Encoding         : 65001
 
- Date: 05/07/2024 10:58:06
+ Date: 05/07/2024 15:12:10
 */
 
 SET NAMES utf8mb4;
@@ -23,17 +23,17 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file`  (
   `file_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `file_start` blob NOT NULL,
+  `file_start` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `upload_start_time` datetime(0) NULL DEFAULT NULL,
-  `file_translation` blob NOT NULL,
+  `file_translation` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `upload_translation_time` datetime(0) NULL DEFAULT NULL,
-  `file_outschool` blob NULL,
+  `file_outschool` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `upload_outschool_time` datetime(0) NULL DEFAULT NULL,
-  `file_mid` blob NOT NULL,
+  `file_mid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `upload_mid_time` datetime(0) NULL DEFAULT NULL,
-  `result_mid` blob NOT NULL,
+  `result_mid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `upload_midresult_time` datetime(0) NULL DEFAULT NULL,
-  `file_defense` blob NOT NULL,
+  `file_defense` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `upload_defense_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`file_id`) USING BTREE,
   CONSTRAINT `file_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -42,15 +42,15 @@ CREATE TABLE `file`  (
 -- ----------------------------
 -- Records of file
 -- ----------------------------
-INSERT INTO `file` VALUES ('202411111111', 0x312E747874, NULL, 0x312E706466, NULL, NULL, NULL, 0x312E657865, NULL, '', NULL, 0x312E737373, NULL);
-INSERT INTO `file` VALUES ('202422222222', 0x312E747874, NULL, 0x312E747874, NULL, NULL, NULL, 0x312E747874, NULL, 0x312E747874, NULL, 0x312E747874, NULL);
-INSERT INTO `file` VALUES ('202433333333', 0x332E747874, NULL, 0x332E706466, NULL, NULL, NULL, 0x332E657865, NULL, '', NULL, 0x332E737373, NULL);
-INSERT INTO `file` VALUES ('202444444444', 0x312E747874, NULL, 0x312E747874, NULL, NULL, NULL, 0x312E747874, NULL, 0x312E747874, NULL, 0x312E747874, NULL);
-INSERT INTO `file` VALUES ('202455555555', 0x312E747874, NULL, 0x312E747874, NULL, NULL, NULL, 0x312E747874, NULL, 0x312E747874, NULL, 0x312E747874, NULL);
-INSERT INTO `file` VALUES ('202466666666', 0x312E747874, NULL, 0x312E747874, NULL, NULL, NULL, 0x312E747874, NULL, 0x312E747874, NULL, 0x312E747874, NULL);
-INSERT INTO `file` VALUES ('202477777777', 0x312E747874, NULL, 0x312E747874, NULL, NULL, NULL, 0x312E747874, NULL, 0x312E747874, NULL, 0x312E747874, NULL);
-INSERT INTO `file` VALUES ('202488888888', 0x312E747874, NULL, 0x312E747874, NULL, NULL, NULL, 0x312E747874, NULL, 0x312E747874, NULL, 0x312E747874, NULL);
-INSERT INTO `file` VALUES ('202499999999', 0x312E747874, NULL, 0x312E747874, NULL, NULL, NULL, 0x312E747874, NULL, 0x312E747874, NULL, 0x312E747874, NULL);
+INSERT INTO `file` VALUES ('202411111111', '1.txt', NULL, '1.pdf', NULL, NULL, NULL, '1.exe', NULL, '', NULL, '1.sss', NULL);
+INSERT INTO `file` VALUES ('202422222222', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
+INSERT INTO `file` VALUES ('202433333333', '3.txt', NULL, '3.pdf', NULL, NULL, NULL, '3.exe', NULL, '', NULL, '3.sss', NULL);
+INSERT INTO `file` VALUES ('202444444444', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
+INSERT INTO `file` VALUES ('202455555555', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
+INSERT INTO `file` VALUES ('202466666666', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
+INSERT INTO `file` VALUES ('202477777777', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
+INSERT INTO `file` VALUES ('202488888888', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
+INSERT INTO `file` VALUES ('202499999999', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
 
 -- ----------------------------
 -- Table structure for group
@@ -90,7 +90,8 @@ CREATE TABLE `prefile`  (
 -- Records of prefile
 -- ----------------------------
 INSERT INTO `prefile` VALUES ('001', 'q', 'w', '111111111111');
-INSERT INTO `prefile` VALUES ('002', 'a', 's', '111155555555');
+INSERT INTO `prefile` VALUES ('002', 'a', 's', '111144444444');
+INSERT INTO `prefile` VALUES ('003', 'f', 'd', '111177777777');
 
 -- ----------------------------
 -- Table structure for score
