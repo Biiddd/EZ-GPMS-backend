@@ -44,6 +44,10 @@ app.use(uploadFinalRouter);
 const uploadAskRouter = require('./router/api/uploadAsk');
 app.use(uploadAskRouter);
 
+//获取登录信息
+const getLoginRouter = require('./router/api/getLogin');
+app.use(getLoginRouter);
+
 app.listen(5174, () => {
   logger.info('服务启动成功, 监听端口 5174');
 });
