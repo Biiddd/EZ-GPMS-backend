@@ -48,6 +48,10 @@ app.use(uploadAskRouter);
 const getLoginRouter = require('./router/api/getLogin');
 app.use(getLoginRouter);
 
+//获取下载文件路径
+const DownloadRouter = require('./router/api/download');
+app.use(DownloadRouter);
+
 app.listen(5174, () => {
   logger.info('服务启动成功, 监听端口 5174');
 });
