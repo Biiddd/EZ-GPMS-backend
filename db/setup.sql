@@ -1,69 +1,90 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : gpms
+ Source Server         : G15
  Source Server Type    : MySQL
- Source Server Version : 80400
+ Source Server Version : 80400 (8.4.0)
  Source Host           : localhost:3306
- Source Schema         : gpms
+ Source Schema         : gpms1
 
  Target Server Type    : MySQL
- Target Server Version : 80400
+ Target Server Version : 80400 (8.4.0)
  File Encoding         : 65001
 
- Date: 05/07/2024 15:12:10
+ Date: 07/07/2024 01:10:21
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for common_file
+-- ----------------------------
+DROP TABLE IF EXISTS `common_file`;
+CREATE TABLE `common_file`  (
+  `common_file_id` int NOT NULL AUTO_INCREMENT COMMENT '公共文件id',
+  `common_file_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '公共文件名',
+  `common_file_path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '公共文件内容',
+  PRIMARY KEY (`common_file_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of common_file
+-- ----------------------------
+INSERT INTO `common_file` VALUES (1, '开题报告模板', 'uploads/common/开题报告模板.docx');
+INSERT INTO `common_file` VALUES (2, '毕业论文模板', 'uploads/common/毕业论文模板.docx');
+INSERT INTO `common_file` VALUES (3, '校外毕设申请模板', 'uploads/common/校外毕设申请模板.docx');
+INSERT INTO `common_file` VALUES (4, '答辩申请模板', 'uploads/common/defApplyTemplate.docx');
+
+-- ----------------------------
 -- Table structure for file
 -- ----------------------------
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file`  (
-  `file_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `file_start` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `upload_start_time` datetime(0) NULL DEFAULT NULL,
-  `file_translation` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `upload_translation_time` datetime(0) NULL DEFAULT NULL,
-  `file_outschool` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `upload_outschool_time` datetime(0) NULL DEFAULT NULL,
-  `file_mid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `upload_mid_time` datetime(0) NULL DEFAULT NULL,
-  `result_mid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `upload_midresult_time` datetime(0) NULL DEFAULT NULL,
-  `file_defense` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `upload_defense_time` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`file_id`) USING BTREE,
-  CONSTRAINT `file_ibfk_1` FOREIGN KEY (`file_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  `stu_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `start_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_start_time` datetime NULL DEFAULT NULL,
+  `translation_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_translation_time` datetime NULL DEFAULT NULL,
+  `outschool_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `upload_outschool_time` datetime NULL DEFAULT NULL,
+  `midReport_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_midReport_time` datetime NULL DEFAULT NULL,
+  `midWork_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_midWork_time` datetime NULL DEFAULT NULL,
+  `defenseApply_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_defenseApply_time` datetime NULL DEFAULT NULL,
+  `final_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_fianl_time` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`stu_id`) USING BTREE,
+  CONSTRAINT `file_ibfk_1` FOREIGN KEY (`stu_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of file
 -- ----------------------------
-INSERT INTO `file` VALUES ('202411111111', '1.txt', NULL, '1.pdf', NULL, NULL, NULL, '1.exe', NULL, '', NULL, '1.sss', NULL);
-INSERT INTO `file` VALUES ('202422222222', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
-INSERT INTO `file` VALUES ('202433333333', '3.txt', NULL, '3.pdf', NULL, NULL, NULL, '3.exe', NULL, '', NULL, '3.sss', NULL);
-INSERT INTO `file` VALUES ('202444444444', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
-INSERT INTO `file` VALUES ('202455555555', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
-INSERT INTO `file` VALUES ('202466666666', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
-INSERT INTO `file` VALUES ('202477777777', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
-INSERT INTO `file` VALUES ('202488888888', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
-INSERT INTO `file` VALUES ('202499999999', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL);
+INSERT INTO `file` VALUES ('202411111111', '1.txt', NULL, '1.pdf', NULL, NULL, NULL, '1.exe', NULL, '', NULL, '1.sss', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202422222222', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202433333333', '3.txt', NULL, '3.pdf', NULL, NULL, NULL, '3.exe', NULL, '', NULL, '3.sss', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202444444444', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202455555555', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202466666666', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202477777777', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202488888888', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202499999999', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, 'uploads/202499999999/毕业论文终稿.pdf', NULL, '1.txt', NULL, 'uploads/202499999999/毕业论文终稿.pdf', NULL);
 
 -- ----------------------------
 -- Table structure for group
 -- ----------------------------
 DROP TABLE IF EXISTS `group`;
 CREATE TABLE `group`  (
-  `group_id` int(0) NOT NULL,
-  `stu_group_id` int(0) NULL DEFAULT NULL,
-  `teacher_group_id` int(0) NULL DEFAULT NULL,
+  `group_id` int NOT NULL,
+  `stu_group_id` int NULL DEFAULT NULL,
+  `teacher_group_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`group_id`) USING BTREE,
-  INDEX `teacher_group_id`(`teacher_group_id`) USING BTREE,
-  INDEX `stu_group_id`(`stu_group_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  INDEX `teacher_group_id`(`teacher_group_id` ASC) USING BTREE,
+  INDEX `stu_group_id`(`stu_group_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of group
@@ -71,27 +92,6 @@ CREATE TABLE `group`  (
 INSERT INTO `group` VALUES (1, 1, 1);
 INSERT INTO `group` VALUES (2, 2, 2);
 INSERT INTO `group` VALUES (3, 3, 3);
-
--- ----------------------------
--- Table structure for prefile
--- ----------------------------
-DROP TABLE IF EXISTS `prefile`;
-CREATE TABLE `prefile`  (
-  `pre_id` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `task` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `instruct` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `pre_teacher_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  PRIMARY KEY (`pre_id`) USING BTREE,
-  INDEX `pre_teacher_id`(`pre_teacher_id`) USING BTREE,
-  CONSTRAINT `prefile_ibfk_1` FOREIGN KEY (`pre_teacher_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of prefile
--- ----------------------------
-INSERT INTO `prefile` VALUES ('001', 'q', 'w', '111111111111');
-INSERT INTO `prefile` VALUES ('002', 'a', 's', '111144444444');
-INSERT INTO `prefile` VALUES ('003', 'f', 'd', '111177777777');
 
 -- ----------------------------
 -- Table structure for score
@@ -141,13 +141,13 @@ CREATE TABLE `score`  (
   `finalEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '总评',
   `final_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '小组秘书（最终评价）',
   PRIMARY KEY (`score_id`) USING BTREE,
-  INDEX `start_id`(`start_id`) USING BTREE,
-  INDEX `trans_id`(`trans_id`) USING BTREE,
-  INDEX `mid_id`(`mid_id`) USING BTREE,
-  INDEX `teach_id`(`teach_id`) USING BTREE,
-  INDEX `read_id`(`read_id`) USING BTREE,
-  INDEX `def_id`(`def_id`) USING BTREE,
-  INDEX `final_id`(`final_id`) USING BTREE,
+  INDEX `start_id`(`start_id` ASC) USING BTREE,
+  INDEX `trans_id`(`trans_id` ASC) USING BTREE,
+  INDEX `mid_id`(`mid_id` ASC) USING BTREE,
+  INDEX `teach_id`(`teach_id` ASC) USING BTREE,
+  INDEX `read_id`(`read_id` ASC) USING BTREE,
+  INDEX `def_id`(`def_id` ASC) USING BTREE,
+  INDEX `final_id`(`final_id` ASC) USING BTREE,
   CONSTRAINT `score_ibfk_1` FOREIGN KEY (`score_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `score_ibfk_2` FOREIGN KEY (`start_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `score_ibfk_3` FOREIGN KEY (`trans_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -177,15 +177,15 @@ INSERT INTO `score` VALUES ('202499999999', NULL, NULL, NULL, NULL, '11119999999
 DROP TABLE IF EXISTS `stu`;
 CREATE TABLE `stu`  (
   `stu_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `stu_states` int(0) NOT NULL,
+  `stu_states` int NOT NULL,
   `stu_guide_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `stu_outschool` tinyint(1) NULL DEFAULT NULL,
-  `stu_group_id` int(0) NOT NULL,
+  `stu_group_id` int NOT NULL,
   `stu_major` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `stu_class` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`stu_id`) USING BTREE,
-  INDEX `stu_guide_id`(`stu_guide_id`) USING BTREE,
-  INDEX `stu_group_id`(`stu_group_id`) USING BTREE,
+  INDEX `stu_guide_id`(`stu_guide_id` ASC) USING BTREE,
+  INDEX `stu_group_id`(`stu_group_id` ASC) USING BTREE,
   CONSTRAINT `stu_ibfk_2` FOREIGN KEY (`stu_guide_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `stu_ibfk_3` FOREIGN KEY (`stu_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
@@ -210,10 +210,10 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
   `teacher_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `teacher_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `teacher_group_id` int(0) NULL DEFAULT NULL,
+  `teacher_group_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`teacher_id`) USING BTREE,
-  INDEX `teacher_id`(`teacher_id`) USING BTREE,
-  INDEX `teacher_group_id`(`teacher_group_id`) USING BTREE,
+  INDEX `teacher_id`(`teacher_id` ASC) USING BTREE,
+  INDEX `teacher_group_id`(`teacher_group_id` ASC) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
