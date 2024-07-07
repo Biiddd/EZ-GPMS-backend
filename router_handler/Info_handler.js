@@ -14,12 +14,18 @@ exports.getFullInfo = (req, res) => {
       return res.status(500).send('查询数据库时出错');
     }
     logger.info('获取信息成功');
+    // 构造基本信息
     const userInfo = {
       user_id: rows[0].user_id,
       name: rows[0].name,
       gender: rows[0].gender,
       age: rows[0].age,
       type: rows[0].type,
+      class: '',
+      major: '',
+      title: '',
+      stuGroup: null,
+      teacherGroup: null,
       tel: rows[0].tel,
       email: rows[0].email,
       user_pic: rows[0].user_pic,
@@ -31,16 +37,43 @@ exports.getFullInfo = (req, res) => {
       },
       detailAdd: rows[0].detailAdd
     };
-
-    res.status(200).json(userInfo);
+    // 如果是老师，获取职称和教师组id
+    if (userInfo.type === '老师') {
+      db.query(
+        `select title, teacher_group_id
+                from teacher
+                where teacher_id = ?`,
+        [user_id],
+        (err, rows) => {
+          userInfo.title = rows[0].title;
+          userInfo.teacherGroup = rows[0].teacher_group_id;
+          res.status(200).json(userInfo);
+        }
+      );
+    }
+    // 如果是学生，获取班级和专业和学生组id
+    else if (userInfo.type === '学生') {
+      db.query(
+        `select stu_class, stu_major,stu_group_id
+         from stu
+         where stu_id = ?`,
+        [user_id],
+        (err, rows) => {
+          userInfo.class = rows[0].stu_class;
+          userInfo.major = rows[0].stu_major;
+          userInfo.stuGroup = rows[0].stu_group_id;
+          res.status(200).json(userInfo);
+        }
+      );
+    }
   });
 };
 
 exports.getEditInfo = (req, res) => {
   let { user_id } = req.body;
   const query = `SELECT user_id, province, city, area, tel, email, detailAdd
-              FROM user
-              WHERE user_id = ?`;
+                 FROM user
+                 WHERE user_id = ?`;
 
   db.query(query, [user_id], (err, rows) => {
     if (err) {
@@ -69,19 +102,24 @@ exports.getEditInfo = (req, res) => {
 
     res.status(200).json(userInfo);
   });
-}
+};
 
 exports.updateInfo = (req, res) => {
   let {
     user_id,
     tel,
     email,
-    region: { province, city, area }, detailAdd
+    region: { province, city, area },
+    detailAdd
   } = req.body;
 
-
   const query = `UPDATE user
-                 SET tel = ?, email = ?, province = ?, city = ?, area = ?, detailAdd = ?
+                 SET tel       = ?,
+                     email     = ?,
+                     province  = ?,
+                     city      = ?,
+                     area      = ?,
+                     detailAdd = ?
                  WHERE user_id = ?`;
 
   db.query(query, [tel, email, province, city, area, detailAdd, user_id], (err) => {
