@@ -1,30 +1,57 @@
-# 软工课设-后端部分
-## 技术栈
-- 开发平台: WebStorm
-- 框架: Express
-- 数据库: MySQL
-- 日志: Winston
+# EZ-GPMS
 
-## 运行
-1. 安装依赖
-```shell
-npm i
-```
-如果安装失败，可以尝试使用淘宝镜像，自行搜索，注意日期
+## Technology stack
+- Develop Platform: WebStorm
+- Framework: Express
+- DataBase: MySQL 8.4
+- Log: Winston
 
-2. 运行
-使用nodemon运行可以热更新，方便开发 
-- 使用命令行
-```shell
-nodemon app.js
-```
-- 在WebStorm中配置nodemon运行
-```shell
-//编辑配置 Edit Configurations
+## How to Run
+1. Install dependencies  
+use your favorite package manager to install dependencies
+    ```shell
+    npm i
+    # or
+    pnpm i
+    # or
+    yarn i
+    ```
 
-//节点形参 Node parameters
-当前项目目录下的node_modules/nodemon/bin/nodemon.js
+2. Database Configuration  
+    modify `host`, `user`, `password`, `database` in`~/db/index.js`
+    ```javascript
+    const mysql = require('mysql2');
 
-//JavaScript文件 JavaScript file
-当前项目目录下的app.js
-```
+    const db = mysql.createConnection({
+      host: 'localhost',
+      user: 'yourusername',
+      password: 'yourpassword',
+      database: 'yourdatabase'
+    });
+    
+    module.exports = db;
+    ```
+
+3. Initialize Database  
+   run `~/db/setup.sql`
+
+4. Run
+   1. Run File Server
+       ```shell
+       # create uploads folder
+       touch uploads
+       # assign running port 3333 and allow cors
+       http-server -p 3333 --cors
+       ```
+   2. Run Backend Server  
+    using nodemon to run can hot update
+   - use command line
+       ```shell
+        nodemon app.js
+       ```
+   - configure nodemon to run in WebStorm
+     ```shell
+     Edit Configurations
+     Node parameters ==> node_modules/nodemon/bin/nodemon.js
+     JavaScript file ==> app.js
+     ```
