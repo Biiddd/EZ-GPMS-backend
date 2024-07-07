@@ -1,5 +1,6 @@
 const db = require('../db/index');
 const logger = require('../modules/logger');
+const updateStu = require('../utils/updateStuState');
 
 exports.updateScore = (req, res) => {
   let {
@@ -124,6 +125,7 @@ exports.updateScore = (req, res) => {
         return res.status(500).send('查询数据库时出错');
       }
       logger.info('更新成绩成功');
+      updateStu(stu_id);
       res.status(200).send('更新成绩成功');
     }
   );

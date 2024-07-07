@@ -2,7 +2,8 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const logger = require('../modules/logger');
-const db = require('../db/index'); // 引入数据库连接
+const db = require('../db/index');
+const updateStu = require('../utils/updateStuState'); // 引入数据库连接
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -95,6 +96,7 @@ exports.uploadSingle = (req, res) => {
       }
 
       logger.info('文件上传成功:', file.filename);
+      updateStu(stu_id);
       res.status(200).send('文件上传成功');
     });
   });
