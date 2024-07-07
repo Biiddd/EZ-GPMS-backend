@@ -3,7 +3,7 @@ const logger = require('../modules/logger');
 
 exports.updateScore = (req, res) => {
   let {
-    score_id,
+    stu_id,
     transScore1,
     transScore2,
     transScore3,
@@ -77,7 +77,7 @@ exports.updateScore = (req, res) => {
                     
                     finalEva = ?
                     
-                 WHERE score_id = ?`;
+                 WHERE stu_id = ?`;
 
   db.query(
     query,
@@ -116,7 +116,7 @@ exports.updateScore = (req, res) => {
 
       finalEva,
 
-      score_id
+      stu_id
     ],
     (err) => {
       if (err) {
