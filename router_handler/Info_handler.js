@@ -40,13 +40,14 @@ exports.getFullInfo = (req, res) => {
     // 如果是老师，获取职称和教师组id
     if (userInfo.type === '老师') {
       db.query(
-        `select title, teacher_group_id
+        `select title, teacher_group_id, teacher_type
                 from teacher
                 where teacher_id = ?`,
         [user_id],
         (err, rows) => {
           userInfo.title = rows[0].title;
           userInfo.teacherGroup = rows[0].teacher_group_id;
+          userInfo.teacherType = rows[0].teacher_type;
           res.status(200).json(userInfo);
         }
       );
