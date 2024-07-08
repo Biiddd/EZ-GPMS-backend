@@ -66,6 +66,9 @@ exports.getFullInfo = (req, res) => {
           res.status(200).json(userInfo);
         }
       );
+    } else {
+      // 如果是管理员，直接返回
+      res.status(200).json(userInfo);
     }
   });
 };
