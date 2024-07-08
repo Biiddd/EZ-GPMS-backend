@@ -1,4 +1,4 @@
-export let replace = {
+exports.replace_items = {
   stu_name: '',
   major: '',
   class: '',
