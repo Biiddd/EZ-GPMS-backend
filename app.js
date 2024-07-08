@@ -37,7 +37,7 @@ app.use(getStuListRouter);
 const getGroupRouter = require('./router/api/getGroup');
 app.use(getGroupRouter);
 
-const uploadFinalRouter = require('./router/api/upload')
+const uploadFinalRouter = require('./router/api/upload');
 app.use(uploadFinalRouter);
 
 // 上传说明书和指导书
@@ -51,6 +51,10 @@ app.use(getLoginRouter);
 //获取下载文件路径
 const DownloadRouter = require('./router/api/download');
 app.use(DownloadRouter);
+
+// 管理员获取用户信息
+const getUserRouter = require('./router/api/getUser');
+app.use(getUserRouter);
 
 app.listen(5174, () => {
   logger.info('服务启动成功, 监听端口 5174');
