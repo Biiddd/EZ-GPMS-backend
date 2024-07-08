@@ -135,3 +135,75 @@ exports.updateInfo = (req, res) => {
     return res.status(200).send('信息修改成功');
   });
 };
+
+exports.addUser = (req, res) => {
+  const {
+    user_id,
+    name,
+    gender,
+    age,
+    region: { province, city, area },
+    tel,
+    email,
+    detailAdd,
+    user_pic,
+    type,
+    class: stu_class,
+    major,
+    title,
+    teacherType,
+    stuGroup,
+    teacherGroup
+  } = req.body;
+
+  // 检查必填项
+  if (!user_id || !name || !type) {
+    return res.status(200).json({ code: 500100, msg: '用户ID、姓名和类型是必填项' });
+  }
+
+  // 构建基本用户信息插入 SQL
+  const insertUserQuery = `INSERT INTO user 
+                           (user_id, name, gender, age, province, city, area, tel, email, detailAdd, user_pic, type)
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  db.query(
+    insertUserQuery,
+    [user_id, name, gender, age, province, city, area, tel, email, detailAdd, user_pic, type],
+    (err, result) => {
+      if (err) {
+        logger.error('插入用户基本信息时出错:', err);
+        return res.status(200).json({ code: 500, msg: '插入用户基本信息时出错' });
+      }
+
+      logger.info('插入用户基本信息成功');
+
+      // 插入不同类型用户的详细信息
+      if (type === '老师') {
+        const insertTeacherQuery = `INSERT INTO teacher (teacher_id, title, teacher_group_id, teacher_type)
+                                  VALUES (?, ?, ?, ?)`;
+        db.query(insertTeacherQuery, [user_id, title, teacherGroup, teacherType], (err, result) => {
+          if (err) {
+            logger.error('插入老师信息时出错:', err);
+            return res.status(200).json({ message: '插入老师信息时出错' });
+          }
+          logger.info('插入老师信息成功');
+          res.status(200).json({ message: '添加用户成功' });
+        });
+      } else if (type === '学生') {
+        const insertStuQuery = `INSERT INTO stu (stu_id, stu_class, stu_major, stu_group_id)
+                              VALUES (?, ?, ?, ?)`;
+        db.query(insertStuQuery, [user_id, stu_class, major, stuGroup], (err, result) => {
+          if (err) {
+            logger.error('插入学生信息时出错:', err);
+            return res.status(200).json({ message: '插入学生信息时出错' });
+          }
+          logger.info('插入学生信息成功');
+          res.status(200).json({ message: '添加用户成功' });
+        });
+      } else {
+        // 如果是管理员，不需要插入其他信息
+        res.status(200).json({ message: '添加用户成功' });
+      }
+    }
+  );
+};
