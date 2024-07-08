@@ -1,6 +1,9 @@
 const db = require('../db/index');
 const logger = require('../modules/logger');
+const replace_items = require('../modules/replace_item');
+const { generateEvaluationFile } = require('../modules/slove_word');
 
+// 教师下载学生文件逻辑
 exports.teacherDownload = (req, res) => {
   let { user_id, file } = req.query;
   switch (file) {
@@ -14,11 +17,11 @@ exports.teacherDownload = (req, res) => {
           return res.status(200).json({ code: 50001, msg: '查询数据库时出错' });
         }
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].start_file;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -27,13 +30,12 @@ exports.teacherDownload = (req, res) => {
                                 FROM file
                                 WHERE stu_id = ?`;
       db.query(translation_file, [user_id], (err, result) => {
-
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].translation_file;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -42,13 +44,12 @@ exports.teacherDownload = (req, res) => {
                             FROM file
                             WHERE stu_id = ?`;
       db.query(midWork_file, [user_id], (err, result) => {
-
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].midWork_file;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -57,13 +58,12 @@ exports.teacherDownload = (req, res) => {
                               FROM file
                               WHERE stu_id = ?`;
       db.query(midReport_file, [user_id], (err, result) => {
-
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].midReport_file;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -77,11 +77,11 @@ exports.teacherDownload = (req, res) => {
           return res.status(200).json({ code: 50001, msg: '查询数据库时出错' });
         }
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].final_file;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -90,13 +90,12 @@ exports.teacherDownload = (req, res) => {
                                  FROM file
                                  WHERE stu_id = ?`;
       db.query(defenseApply_file, [user_id], (err, result) => {
-
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].defenseApply_file;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -105,7 +104,7 @@ exports.teacherDownload = (req, res) => {
   }
 };
 
-// 公共文件下载逻辑
+// 学生下载公共文件逻辑
 exports.stuDownload = (req, res) => {
   let { file } = req.query;
   switch (file) {
@@ -115,11 +114,11 @@ exports.stuDownload = (req, res) => {
                                        WHERE common_file_name = ?`;
       db.query(outSchool_file_template, [file], (err, result) => {
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].common_file_path;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -129,11 +128,11 @@ exports.stuDownload = (req, res) => {
                                    WHERE common_file_name = ?`;
       db.query(start_file_template, [file], (err, result) => {
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].common_file_path;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -143,11 +142,11 @@ exports.stuDownload = (req, res) => {
                                    WHERE common_file_name = ?`;
       db.query(final_file_template, [file], (err, result) => {
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].common_file_path;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
@@ -157,11 +156,11 @@ exports.stuDownload = (req, res) => {
                                           WHERE common_file_name = ?`;
       db.query(defenseApply_file_template, [file], (err, result) => {
         if (result.length === 0) {
-          logger.error('未找到文件')
+          logger.error('未找到文件');
           return res.status(200).json({ code: 40002, msg: '未找到文件' });
         }
         const path = result[0].common_file_path;
-        logger.info('获取文件路径成功:', path)
+        logger.info('获取文件路径成功:', path);
         return res.status(200).json({ code: 20000, path: path });
       });
       break;
