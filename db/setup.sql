@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql
+ Source Server         : G15
  Source Server Type    : MySQL
- Source Server Version : 80038 (8.0.38)
- Source Host           : 127.0.0.1:3306
- Source Schema         : gpms
+ Source Server Version : 80400 (8.4.0)
+ Source Host           : localhost:3306
+ Source Schema         : gpms1
 
  Target Server Type    : MySQL
- Target Server Version : 80038 (8.0.38)
+ Target Server Version : 80400 (8.4.0)
  File Encoding         : 65001
 
- Date: 08/07/2024 15:34:54
+ Date: 07/07/2024 19:58:23
 */
 
 SET NAMES utf8mb4;
@@ -21,162 +21,133 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for common_file
 -- ----------------------------
 DROP TABLE IF EXISTS `common_file`;
-CREATE TABLE `common_file` (
+CREATE TABLE `common_file`  (
   `common_file_id` int NOT NULL AUTO_INCREMENT COMMENT '公共文件id',
   `common_file_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '公共文件名',
-  `common_file_path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '公共文件内容',
+  `common_file_path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '公共文件内容',
   PRIMARY KEY (`common_file_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of common_file
 -- ----------------------------
-BEGIN;
-INSERT INTO `common_file` (`common_file_id`, `common_file_name`, `common_file_path`) VALUES (1, '开题报告模板', 'uploads/common/openReportTemplate.docx');
-INSERT INTO `common_file` (`common_file_id`, `common_file_name`, `common_file_path`) VALUES (2, '毕业论文模板', 'uploads/common/paperTemplate.docx');
-INSERT INTO `common_file` (`common_file_id`, `common_file_name`, `common_file_path`) VALUES (3, '校外毕设申请表', 'uploads/common/outSchoolApplyTemplate.docx');
-INSERT INTO `common_file` (`common_file_id`, `common_file_name`, `common_file_path`) VALUES (4, '答辩申请模板', 'uploads/common/defApplyTemplate.docx');
-COMMIT;
+INSERT INTO `common_file` VALUES (1, '开题报告模板', 'uploads/common/openReportTemplate.docx');
+INSERT INTO `common_file` VALUES (2, '毕业论文模板', 'uploads/common/paperTemplate.docx');
+INSERT INTO `common_file` VALUES (3, '校外毕设申请表', 'uploads/common/outSchoolApplyTemplate.docx');
+INSERT INTO `common_file` VALUES (4, '答辩申请模板', 'uploads/common/defApplyTemplate.docx');
 
 -- ----------------------------
 -- Table structure for file
 -- ----------------------------
 DROP TABLE IF EXISTS `file`;
-CREATE TABLE `file` (
+CREATE TABLE `file`  (
   `stu_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `start_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `upload_start_time` datetime DEFAULT NULL,
-  `translation_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `upload_translation_time` datetime DEFAULT NULL,
-  `outschool_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `upload_outschool_time` datetime DEFAULT NULL,
-  `midReport_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `upload_midReport_time` datetime DEFAULT NULL,
-  `midWork_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `upload_midWork_time` datetime DEFAULT NULL,
-  `defenseApply_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `upload_defenseApply_time` datetime DEFAULT NULL,
-  `final_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `upload_fianl_time` datetime DEFAULT NULL,
+  `start_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_start_time` datetime NULL DEFAULT NULL,
+  `translation_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_translation_time` datetime NULL DEFAULT NULL,
+  `outschool_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `upload_outschool_time` datetime NULL DEFAULT NULL,
+  `midReport_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_midReport_time` datetime NULL DEFAULT NULL,
+  `midWork_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_midWork_time` datetime NULL DEFAULT NULL,
+  `defenseApply_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_defenseApply_time` datetime NULL DEFAULT NULL,
+  `final_file` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `upload_fianl_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`stu_id`) USING BTREE,
   CONSTRAINT `file_ibfk_1` FOREIGN KEY (`stu_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of file
 -- ----------------------------
-BEGIN;
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202411111111', 'uploads/202411111111/开题报告.pdf', NULL, 'uploads/202411111111/外文翻译.pdf', NULL, NULL, NULL, 'uploads/202411111111/中期报告.pdf', NULL, 'uploads/202411111111/中期成果.zip', NULL, 'uploads/202411111111/答辩申请表.pdf', NULL, 'uploads/202411111111/毕业论文终稿.pdf', NULL);
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202422222222', 'uploads/202422222222/开题报告.pdf', NULL, 'uploads/202422222222/外文翻译.pdf', NULL, NULL, NULL, 'uploads/202422222222/中期报告.pdf', NULL, 'uploads/202422222222/中期成果.pdf', NULL, 'uploads/202422222222/答辩申请表.pdf', NULL, 'uploads/202422222222/毕业论文终稿.pdf', NULL);
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202433333333', 'uploads/202433333333/开题报告.pdf', NULL, '1', NULL, NULL, NULL, 'uploads/202433333333/中期报告.pdf', NULL, 'uploads/202433333333/中期成果.pdf', NULL, 'uploads/202433333333/答辩申请表.pdf', NULL, 'uploads/202433333333/毕业论文终稿.pdf', NULL);
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202444444444', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202455555555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202466666666', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202477777777', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202488888888', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `file` (`stu_id`, `start_file`, `upload_start_time`, `translation_file`, `upload_translation_time`, `outschool_file`, `upload_outschool_time`, `midReport_file`, `upload_midReport_time`, `midWork_file`, `upload_midWork_time`, `defenseApply_file`, `upload_defenseApply_time`, `final_file`, `upload_fianl_time`) VALUES ('202499999999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-COMMIT;
+INSERT INTO `file` VALUES ('202411111111', 'uploads/202411111111/开题报告.pdf', NULL, 'uploads/202411111111/外文翻译.pdf', NULL, NULL, NULL, 'uploads/202411111111/中期报告.pdf', NULL, 'uploads/202411111111/中期成果.zip', NULL, 'uploads/202411111111/答辩申请表.pdf', NULL, 'uploads/202411111111/毕业论文终稿.pdf', NULL);
+INSERT INTO `file` VALUES ('202422222222', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202433333333', '3.txt', NULL, '3.pdf', NULL, NULL, NULL, '3.exe', NULL, '', NULL, '3.sss', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202444444444', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202455555555', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202466666666', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202477777777', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202488888888', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, '1.txt', NULL, '1.txt', NULL, '', NULL);
+INSERT INTO `file` VALUES ('202499999999', '1.txt', NULL, '1.txt', NULL, NULL, NULL, '1.txt', NULL, 'uploads/202499999999/毕业论文终稿.pdf', NULL, '1.txt', NULL, 'uploads/202499999999/毕业论文终稿.pdf', NULL);
 
 -- ----------------------------
 -- Table structure for group
 -- ----------------------------
 DROP TABLE IF EXISTS `group`;
-CREATE TABLE `group` (
+CREATE TABLE `group`  (
   `group_id` int NOT NULL,
-  `stu_group_id` int DEFAULT NULL,
-  `teacher_group_id` int DEFAULT NULL,
+  `stu_group_id` int NULL DEFAULT NULL,
+  `teacher_group_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`group_id`) USING BTREE,
-  KEY `teacher_group_id` (`teacher_group_id`) USING BTREE,
-  KEY `stu_group_id` (`stu_group_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+  INDEX `teacher_group_id`(`teacher_group_id` ASC) USING BTREE,
+  INDEX `stu_group_id`(`stu_group_id` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of group
 -- ----------------------------
-BEGIN;
-INSERT INTO `group` (`group_id`, `stu_group_id`, `teacher_group_id`) VALUES (1, 1, 1);
-INSERT INTO `group` (`group_id`, `stu_group_id`, `teacher_group_id`) VALUES (2, 2, 2);
-INSERT INTO `group` (`group_id`, `stu_group_id`, `teacher_group_id`) VALUES (3, 3, 3);
-COMMIT;
-
--- ----------------------------
--- Table structure for prefile
--- ----------------------------
-DROP TABLE IF EXISTS `prefile`;
-CREATE TABLE `prefile` (
-  `pre_id` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `task` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `instruct` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `pre_teacher_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  PRIMARY KEY (`pre_id`) USING BTREE,
-  KEY `pre_teacher_id` (`pre_teacher_id`) USING BTREE,
-  CONSTRAINT `prefile_ibfk_1` FOREIGN KEY (`pre_teacher_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of prefile
--- ----------------------------
-BEGIN;
-INSERT INTO `prefile` (`pre_id`, `task`, `instruct`, `pre_teacher_id`) VALUES ('001', 'q', 'w', '111111111111');
-INSERT INTO `prefile` (`pre_id`, `task`, `instruct`, `pre_teacher_id`) VALUES ('002', 'a', 's', '111155555555');
-COMMIT;
+INSERT INTO `group` VALUES (1, 1, 1);
+INSERT INTO `group` VALUES (2, 2, 2);
+INSERT INTO `group` VALUES (3, 3, 3);
 
 -- ----------------------------
 -- Table structure for score
 -- ----------------------------
 DROP TABLE IF EXISTS `score`;
-CREATE TABLE `score` (
+CREATE TABLE `score`  (
   `stu_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `startScore1` float(2,1) DEFAULT NULL COMMENT '开题报告得分1',
-  `startScore2` float(2,1) DEFAULT NULL COMMENT '开题报告得分2',
-  `startScore3` float(2,1) DEFAULT NULL COMMENT '开题报告得分3',
-  `startScore` float(3,1) DEFAULT NULL COMMENT '开题报告得分',
+  `startScore1` float(2, 1) NULL DEFAULT NULL COMMENT '开题报告得分1',
+  `startScore2` float(2, 1) NULL DEFAULT NULL COMMENT '开题报告得分2',
+  `startScore3` float(2, 1) NULL DEFAULT NULL COMMENT '开题报告得分3',
+  `startScore` float(3, 1) NULL DEFAULT NULL COMMENT '开题报告得分',
   `start_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（开题打分）',
-  `transScore1` float(2,1) DEFAULT NULL COMMENT '外文翻译得分1',
-  `transScore2` float(2,1) DEFAULT NULL COMMENT '外文翻译得分2',
-  `transScore3` float(2,1) DEFAULT NULL COMMENT '外文翻译得分3',
-  `transScore` float(2,1) DEFAULT NULL COMMENT '外文翻译得分',
+  `transScore1` float(2, 1) NULL DEFAULT NULL COMMENT '外文翻译得分1',
+  `transScore2` float(2, 1) NULL DEFAULT NULL COMMENT '外文翻译得分2',
+  `transScore3` float(2, 1) NULL DEFAULT NULL COMMENT '外文翻译得分3',
+  `transScore` float(2, 1) NULL DEFAULT NULL COMMENT '外文翻译得分',
   `trans_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '指导老师（外文翻译）',
-  `midScore1` float(2,1) DEFAULT NULL COMMENT '中期检查得分1',
-  `midScore2` float(2,1) DEFAULT NULL COMMENT '中期检查得分2',
-  `midScore3` float(2,1) DEFAULT NULL COMMENT '中期检查得分3',
-  `midScore` float(3,1) DEFAULT NULL COMMENT '中期检查得分',
-  `midEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '中期检查评价',
+  `midScore1` float(2, 1) NULL DEFAULT NULL COMMENT '中期检查得分1',
+  `midScore2` float(2, 1) NULL DEFAULT NULL COMMENT '中期检查得分2',
+  `midScore3` float(2, 1) NULL DEFAULT NULL COMMENT '中期检查得分3',
+  `midScore` float(3, 1) NULL DEFAULT NULL COMMENT '中期检查得分',
+  `midEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '中期检查评价',
   `mid_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（中期打分）',
-  `teachScore1` float(2,1) DEFAULT NULL COMMENT '指导老师打分1',
-  `teachScore2` float(2,1) DEFAULT NULL COMMENT '指导老师打分2',
-  `teachScore3` float(2,1) DEFAULT NULL COMMENT '指导老师打分3',
-  `teachScore4` float(2,1) DEFAULT NULL COMMENT '指导老师打分4',
-  `teachScore5` float(2,1) DEFAULT NULL COMMENT '指导老师打分5',
-  `teachScore` float(3,1) DEFAULT NULL COMMENT '指导老师打分',
-  `teachEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '指导老师评价',
+  `teachScore1` float(2, 1) NULL DEFAULT NULL COMMENT '指导老师打分1',
+  `teachScore2` float(2, 1) NULL DEFAULT NULL COMMENT '指导老师打分2',
+  `teachScore3` float(2, 1) NULL DEFAULT NULL COMMENT '指导老师打分3',
+  `teachScore4` float(2, 1) NULL DEFAULT NULL COMMENT '指导老师打分4',
+  `teachScore5` float(2, 1) NULL DEFAULT NULL COMMENT '指导老师打分5',
+  `teachScore` float(3, 1) NULL DEFAULT NULL COMMENT '指导老师打分',
+  `teachEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '指导老师评价',
   `teach_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '指导老师（终稿）',
-  `readScore1` float(2,1) DEFAULT NULL COMMENT '评阅老师打分1',
-  `readScore2` float(2,1) DEFAULT NULL COMMENT '评阅老师打分2',
-  `readScore3` float(2,1) DEFAULT NULL COMMENT '评阅老师打分3',
-  `readScore4` float(2,1) DEFAULT NULL COMMENT '评阅老师打分4',
-  `readScore` float(3,1) DEFAULT NULL COMMENT '评阅老师打分',
-  `readEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '评阅老师评价',
+  `readScore1` float(2, 1) NULL DEFAULT NULL COMMENT '评阅老师打分1',
+  `readScore2` float(2, 1) NULL DEFAULT NULL COMMENT '评阅老师打分2',
+  `readScore3` float(2, 1) NULL DEFAULT NULL COMMENT '评阅老师打分3',
+  `readScore4` float(2, 1) NULL DEFAULT NULL COMMENT '评阅老师打分4',
+  `readScore` float(3, 1) NULL DEFAULT NULL COMMENT '评阅老师打分',
+  `readEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '评阅老师评价',
   `read_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '评阅老师（终稿评阅打分）',
-  `defRecord` varchar(255) DEFAULT NULL,
-  `defScore1` float(3,1) DEFAULT NULL COMMENT '答辩得分1',
-  `defScore2` float(3,1) DEFAULT NULL COMMENT '答辩得分2',
-  `defScore3` float(3,1) DEFAULT NULL COMMENT '答辩得分3',
-  `defScore4` float(3,1) DEFAULT NULL COMMENT '答辩得分4',
-  `defScore` float(3,1) DEFAULT NULL COMMENT '答辩得分',
-  `defEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '答辩评价',
+  `defScore1` float(3, 1) NULL DEFAULT NULL COMMENT '答辩得分1',
+  `defScore2` float(3, 1) NULL DEFAULT NULL COMMENT '答辩得分2',
+  `defScore3` float(3, 1) NULL DEFAULT NULL COMMENT '答辩得分3',
+  `defScore4` float(3, 1) NULL DEFAULT NULL COMMENT '答辩得分4',
+  `defScore` float(3, 1) NULL DEFAULT NULL COMMENT '答辩得分',
+  `defEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '答辩评价',
   `def_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组长（答辩打分）',
-  `finalScore` float(3,1) DEFAULT NULL COMMENT '总评成绩',
-  `finalEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '总评',
+  `finalScore` float(3, 1) NULL DEFAULT NULL COMMENT '总评成绩',
+  `finalEva` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '总评',
   `final_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '小组秘书（最终评价）',
   PRIMARY KEY (`stu_id`) USING BTREE,
-  KEY `start_id` (`start_id`) USING BTREE,
-  KEY `trans_id` (`trans_id`) USING BTREE,
-  KEY `mid_id` (`mid_id`) USING BTREE,
-  KEY `teach_id` (`teach_id`) USING BTREE,
-  KEY `read_id` (`read_id`) USING BTREE,
-  KEY `def_id` (`def_id`) USING BTREE,
-  KEY `final_id` (`final_id`) USING BTREE,
+  INDEX `start_id`(`start_id` ASC) USING BTREE,
+  INDEX `trans_id`(`trans_id` ASC) USING BTREE,
+  INDEX `mid_id`(`mid_id` ASC) USING BTREE,
+  INDEX `teach_id`(`teach_id` ASC) USING BTREE,
+  INDEX `read_id`(`read_id` ASC) USING BTREE,
+  INDEX `def_id`(`def_id` ASC) USING BTREE,
+  INDEX `final_id`(`final_id` ASC) USING BTREE,
   CONSTRAINT `score_ibfk_1` FOREIGN KEY (`stu_id`) REFERENCES `stu` (`stu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `score_ibfk_2` FOREIGN KEY (`start_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `score_ibfk_3` FOREIGN KEY (`trans_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -185,92 +156,86 @@ CREATE TABLE `score` (
   CONSTRAINT `score_ibfk_6` FOREIGN KEY (`read_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `score_ibfk_7` FOREIGN KEY (`def_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `score_ibfk_8` FOREIGN KEY (`final_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of score
 -- ----------------------------
-BEGIN;
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202411111111', 3.0, 2.0, 4.0, 9.0, '111133333333', 1.0, 1.0, 1.0, 3.0, '111111111111', 5.0, 5.0, 3.0, 13.0, '牛的一批', '111133333333', 3.0, 3.0, 3.0, 0.0, 2.0, 11.0, '还行吧', '111111111111', 4.0, 3.0, 2.0, 3.0, 12.0, '一般般', '111122222222', '666', 8.0, 9.0, 8.0, 7.9, 32.9, '鳖重修了哥们，快毕业吧', '111133333333', 80.9, '牛逼牛逼', '111122222222');
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202422222222', 3.0, 3.0, 3.0, 9.0, '111133333333', 1.0, 1.0, 1.0, 3.0, '111111111111', 4.0, 4.0, 4.0, 12.0, '666', '111133333333', 3.0, 3.0, 3.0, 3.0, 3.0, 15.0, '蠢蛋', '111111111111', 3.0, 3.0, 3.0, 3.0, 12.0, '蠢', '111122222222', '666', 5.0, 5.0, 5.0, 5.0, 20.0, '5555', '111133333333', 71.0, '6666', '111122222222');
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202433333333', 3.0, 3.0, 3.0, 9.0, '111133333333', 1.0, 0.8, 1.0, 2.8, '111111111111', 2.0, 2.0, 2.0, 6.0, '4', '111133333333', 3.0, 3.0, 2.0, 2.0, 2.0, 12.0, 'fda fs', '111111111111', 4.0, 4.0, 4.0, 3.0, 15.0, '555', '111122222222', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111133333333', NULL, NULL, '111122222222');
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202444444444', NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, NULL, '111155555555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, '111155555555');
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202455555555', NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, NULL, '111155555555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, '111155555555');
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202466666666', NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, NULL, '111155555555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, '111155555555');
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202477777777', NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, NULL, '111188888888', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, '111188888888');
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202488888888', NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, NULL, '111188888888', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, '111188888888');
-INSERT INTO `score` (`stu_id`, `startScore1`, `startScore2`, `startScore3`, `startScore`, `start_id`, `transScore1`, `transScore2`, `transScore3`, `transScore`, `trans_id`, `midScore1`, `midScore2`, `midScore3`, `midScore`, `midEva`, `mid_id`, `teachScore1`, `teachScore2`, `teachScore3`, `teachScore4`, `teachScore5`, `teachScore`, `teachEva`, `teach_id`, `readScore1`, `readScore2`, `readScore3`, `readScore4`, `readScore`, `readEva`, `read_id`, `defRecord`, `defScore1`, `defScore2`, `defScore3`, `defScore4`, `defScore`, `defEva`, `def_id`, `finalScore`, `finalEva`, `final_id`) VALUES ('202499999999', NULL, NULL, NULL, NULL, '111199999999', 1.0, 1.0, 1.0, 3.0, '111177777777', NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, NULL, '111188888888', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, '111188888888');
-COMMIT;
+INSERT INTO `score` VALUES ('202411111111', 3.0, 2.0, 4.0, 9.0, '111133333333', 1.0, 1.0, 1.0, 3.0, '111111111111', 5.0, 5.0, 3.0, 13.0, '牛的一批', '111133333333', 3.0, 3.0, 3.0, 0.0, 2.0, 11.0, '还行吧', '111111111111', 4.0, 3.0, 2.0, 3.0, 12.0, '一般般', '111122222222', 8.0, 9.0, 8.0, 7.9, 32.9, '鳖重修了哥们，快毕业吧', '111133333333', 80.9, '牛逼牛逼', '111122222222');
+INSERT INTO `score` VALUES ('202422222222', NULL, NULL, NULL, NULL, '111133333333', NULL, NULL, NULL, NULL, '111111111111', NULL, NULL, NULL, NULL, NULL, '111133333333', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111111111111', NULL, NULL, NULL, NULL, NULL, NULL, '111122222222', NULL, NULL, NULL, NULL, NULL, NULL, '111133333333', NULL, NULL, '111122222222');
+INSERT INTO `score` VALUES ('202433333333', NULL, NULL, NULL, NULL, '111133333333', NULL, NULL, NULL, NULL, '111111111111', NULL, NULL, NULL, NULL, NULL, '111133333333', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111111111111', NULL, NULL, NULL, NULL, NULL, NULL, '111122222222', NULL, NULL, NULL, NULL, NULL, NULL, '111133333333', NULL, NULL, '111122222222');
+INSERT INTO `score` VALUES ('202444444444', NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, NULL, '111155555555', NULL, NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, '111155555555');
+INSERT INTO `score` VALUES ('202455555555', NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, NULL, '111155555555', NULL, NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, '111155555555');
+INSERT INTO `score` VALUES ('202466666666', NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111144444444', NULL, NULL, NULL, NULL, NULL, NULL, '111155555555', NULL, NULL, NULL, NULL, NULL, NULL, '111166666666', NULL, NULL, '111155555555');
+INSERT INTO `score` VALUES ('202477777777', NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, NULL, '111188888888', NULL, NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, '111188888888');
+INSERT INTO `score` VALUES ('202488888888', NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, NULL, '111188888888', NULL, NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, '111188888888');
+INSERT INTO `score` VALUES ('202499999999', NULL, NULL, NULL, NULL, '111199999999', 1.0, 1.0, 1.0, 3.0, '111177777777', NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '111177777777', NULL, NULL, NULL, NULL, NULL, NULL, '111188888888', NULL, NULL, NULL, NULL, NULL, NULL, '111199999999', NULL, NULL, '111188888888');
 
 -- ----------------------------
 -- Table structure for stu
 -- ----------------------------
 DROP TABLE IF EXISTS `stu`;
-CREATE TABLE `stu` (
+CREATE TABLE `stu`  (
   `stu_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `stu_states` int NOT NULL,
-  `stu_guide_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `stu_outschool` tinyint(1) DEFAULT NULL,
+  `stu_guide_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `stu_outschool` tinyint(1) NULL DEFAULT NULL,
   `stu_group_id` int NOT NULL,
   `stu_major` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `stu_class` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`stu_id`) USING BTREE,
-  KEY `stu_guide_id` (`stu_guide_id`) USING BTREE,
-  KEY `stu_group_id` (`stu_group_id`) USING BTREE,
+  INDEX `stu_guide_id`(`stu_guide_id` ASC) USING BTREE,
+  INDEX `stu_group_id`(`stu_group_id` ASC) USING BTREE,
   CONSTRAINT `stu_ibfk_2` FOREIGN KEY (`stu_guide_id`) REFERENCES `teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `stu_ibfk_3` FOREIGN KEY (`stu_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of stu
 -- ----------------------------
-BEGIN;
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202411111111', 5, '111111111111', NULL, 1, '计算机科学与技术', '211');
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202422222222', 5, '111111111111', 1, 1, '计算机科学与技术', '211');
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202433333333', 4, '111111111111', NULL, 1, '计算机科学与技术', '211');
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202444444444', 0, '111144444444', 1, 2, '计算机科学与技术', '211');
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202455555555', 0, '111144444444', NULL, 2, '计算机科学与技术', '212');
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202466666666', 0, '111144444444', 1, 2, '计算机科学与技术', '212');
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202477777777', 0, '111177777777', NULL, 3, '计算机科学与技术', '212');
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202488888888', 0, '111177777777', 1, 3, '计算机科学与技术', '212');
-INSERT INTO `stu` (`stu_id`, `stu_states`, `stu_guide_id`, `stu_outschool`, `stu_group_id`, `stu_major`, `stu_class`) VALUES ('202499999999', 0, '111177777777', NULL, 3, '计算机科学与技术', '213');
-COMMIT;
+INSERT INTO `stu` VALUES ('202411111111', 5, '111111111111', NULL, 1, '计算机科学与技术', '211');
+INSERT INTO `stu` VALUES ('202422222222', 0, '111111111111', 1, 1, '计算机科学与技术', '211');
+INSERT INTO `stu` VALUES ('202433333333', 0, '111111111111', NULL, 1, '计算机科学与技术', '211');
+INSERT INTO `stu` VALUES ('202444444444', 0, '111144444444', 1, 2, '计算机科学与技术', '211');
+INSERT INTO `stu` VALUES ('202455555555', 0, '111144444444', NULL, 2, '计算机科学与技术', '212');
+INSERT INTO `stu` VALUES ('202466666666', 0, '111144444444', 1, 2, '计算机科学与技术', '212');
+INSERT INTO `stu` VALUES ('202477777777', 0, '111177777777', NULL, 3, '计算机科学与技术', '212');
+INSERT INTO `stu` VALUES ('202488888888', 0, '111177777777', 1, 3, '计算机科学与技术', '212');
+INSERT INTO `stu` VALUES ('202499999999', 0, '111177777777', NULL, 3, '计算机科学与技术', '213');
 
 -- ----------------------------
 -- Table structure for teacher
 -- ----------------------------
 DROP TABLE IF EXISTS `teacher`;
-CREATE TABLE `teacher` (
+CREATE TABLE `teacher`  (
   `teacher_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `teacher_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `teacher_group_id` int DEFAULT NULL,
-  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '老师职称',
+  `teacher_group_id` int NULL DEFAULT NULL,
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '老师职称',
   PRIMARY KEY (`teacher_id`) USING BTREE,
-  KEY `teacher_id` (`teacher_id`) USING BTREE,
-  KEY `teacher_group_id` (`teacher_group_id`) USING BTREE,
+  INDEX `teacher_id`(`teacher_id` ASC) USING BTREE,
+  INDEX `teacher_group_id`(`teacher_group_id` ASC) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-BEGIN;
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111111111111', '指导教师', 1, '叫兽');
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111122222222', '小组秘书兼评阅教师', 1, '副教授');
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111133333333', '组长', 1, '讲师');
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111144444444', '指导教师', 2, '博士');
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111155555555', '小组秘书兼评阅教师', 2, '博士后');
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111166666666', '组长', 2, '菜逼');
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111177777777', '指导教师', 3, '打杂的');
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111188888888', '小组秘书兼评阅教师', 3, '倒水的');
-INSERT INTO `teacher` (`teacher_id`, `teacher_type`, `teacher_group_id`, `title`) VALUES ('111199999999', '组长', 3, '送果盘的');
-COMMIT;
+INSERT INTO `teacher` VALUES ('111111111111', '指导教师', 1, '叫兽');
+INSERT INTO `teacher` VALUES ('111122222222', '小组秘书兼评阅教师', 1, '副教授');
+INSERT INTO `teacher` VALUES ('111133333333', '组长', 1, '讲师');
+INSERT INTO `teacher` VALUES ('111144444444', '指导教师', 2, '博士');
+INSERT INTO `teacher` VALUES ('111155555555', '小组秘书兼评阅教师', 2, '博士后');
+INSERT INTO `teacher` VALUES ('111166666666', '组长', 2, '菜逼');
+INSERT INTO `teacher` VALUES ('111177777777', '指导教师', 3, '打杂的');
+INSERT INTO `teacher` VALUES ('111188888888', '小组秘书兼评阅教师', 3, '倒水的');
+INSERT INTO `teacher` VALUES ('111199999999', '组长', 3, '送果盘的');
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+CREATE TABLE `user`  (
   `user_id` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `type` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -285,31 +250,29 @@ CREATE TABLE `user` (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_pic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-BEGIN;
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111111111111', '老师', 'wq', '19', '女', '13877915517', '001@qq.com', '450000', '450100', '450105', 'C大八仙桌', '0001', '001');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111122222222', '老师', 'qd', '63', '男', '00000000002', '002', '000002', '000002', '000002', '002', '0002', '002');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111133333333', '老师', 'jf', '62', '女', '00000000003', '003', '000003', '000003', '000003', '003', '0003', '003');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111144444444', '老师', 'dm', '74', '男', '00000000004', '004', '000004', '000004', '000004', '004', '0004', '004');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111155555555', '老师', 'nr', '48', '女', '00000000005', '005', '000005', '000005', '000005', '005', '0005', '005');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111166666666', '老师', 'jt', '94', '男', '00000000006', '006', '000006', '000006', '000006', '006', '0006', '006');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111177777777', '老师', 'hd', '63', '女', '00000000007', '007', '000007', '000007', '000007', '007', '0007', '007');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111188888888', '老师', 'nd', '47', '男', '00000000008', '008', '000008', '000008', '000008', '008', '0008', '008');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('111199999999', '老师', 'sr', '54', '女', '56789101112', '105', '141414', '141414', '141414', '141', '1414', '14');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202411111111', '学生', '11', '9', '男', '11111111111', '111', '350000', '350100', '350104', '111', '1111', '1');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202422222222', '学生', 'fd', '34', '男', '66677778888', '777', '777777', '777777', '777777', '777', '7777', '7');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202433333333', '学生', 'as', '20', '女', '22233334444', '333', '333333', '333333', '333333', '333', '3333', '3');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202444444444', '学生', 'gd', '23', '女', '77788889999', '888', '888888', '888888', '888888', '888', '8888', '8');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202455555555', '学生', 'gd', '45', '男', '88899991010', '999', '999999', '999999', '999999', '999', '9999', '9');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202466666666', '学生', 'jd', '36', '女', '12345678910', '101', '101010', '101010', '101010', '101', '1010', '10');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202477777777', '学生', 'od', '12', '男', '23456789101', '102', '111111', '111111', '111111', '111', '1111', '11');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202488888888', '学生', 'kj', '24', '女', '34567891011', '103', '121212', '121212', '121212', '121', '1212', '12');
-INSERT INTO `user` (`user_id`, `type`, `name`, `age`, `gender`, `tel`, `email`, `province`, `city`, `area`, `detailAdd`, `password`, `user_pic`) VALUES ('202499999999', '学生', 'xs', '26', '男', '13777813317', '104@gmail.com', '450000', '450500', '450503', '银滩灯球里', '1313', '13');
-COMMIT;
+INSERT INTO `user` VALUES ('111111111111', '老师', 'wq', '19', '女', '13877915517', '001@qq.com', '450000', '450100', '450105', 'C大八仙桌', '0001', '001');
+INSERT INTO `user` VALUES ('111122222222', '老师', 'qd', '63', '男', '00000000002', '002', '000002', '000002', '000002', '002', '0002', '002');
+INSERT INTO `user` VALUES ('111133333333', '老师', 'jf', '62', '女', '00000000003', '003', '000003', '000003', '000003', '003', '0003', '003');
+INSERT INTO `user` VALUES ('111144444444', '老师', 'dm', '74', '男', '00000000004', '004', '000004', '000004', '000004', '004', '0004', '004');
+INSERT INTO `user` VALUES ('111155555555', '老师', 'nr', '48', '女', '00000000005', '005', '000005', '000005', '000005', '005', '0005', '005');
+INSERT INTO `user` VALUES ('111166666666', '老师', 'jt', '94', '男', '00000000006', '006', '000006', '000006', '000006', '006', '0006', '006');
+INSERT INTO `user` VALUES ('111177777777', '老师', 'hd', '63', '女', '00000000007', '007', '000007', '000007', '000007', '007', '0007', '007');
+INSERT INTO `user` VALUES ('111188888888', '老师', 'nd', '47', '男', '00000000008', '008', '000008', '000008', '000008', '008', '0008', '008');
+INSERT INTO `user` VALUES ('111199999999', '老师', 'sr', '54', '女', '56789101112', '105', '141414', '141414', '141414', '141', '1414', '14');
+INSERT INTO `user` VALUES ('202411111111', '学生', '11', '9', '男', '11111111111', '111', '350000', '350100', '350104', '111', '1111', '1');
+INSERT INTO `user` VALUES ('202422222222', '学生', 'fd', '34', '男', '66677778888', '777', '777777', '777777', '777777', '777', '7777', '7');
+INSERT INTO `user` VALUES ('202433333333', '学生', 'as', '20', '女', '22233334444', '333', '333333', '333333', '333333', '333', '3333', '3');
+INSERT INTO `user` VALUES ('202444444444', '学生', 'gd', '23', '女', '77788889999', '888', '888888', '888888', '888888', '888', '8888', '8');
+INSERT INTO `user` VALUES ('202455555555', '学生', 'gd', '45', '男', '88899991010', '999', '999999', '999999', '999999', '999', '9999', '9');
+INSERT INTO `user` VALUES ('202466666666', '学生', 'jd', '36', '女', '12345678910', '101', '101010', '101010', '101010', '101', '1010', '10');
+INSERT INTO `user` VALUES ('202477777777', '学生', 'od', '12', '男', '23456789101', '102', '111111', '111111', '111111', '111', '1111', '11');
+INSERT INTO `user` VALUES ('202488888888', '学生', 'kj', '24', '女', '34567891011', '103', '121212', '121212', '121212', '121', '1212', '12');
+INSERT INTO `user` VALUES ('202499999999', '学生', 'xs', '26', '男', '13777813317', '104@gmail.com', '450000', '450500', '450503', '银滩灯球里', '1313', '13');
 
 -- ----------------------------
 -- View structure for stu_group1
