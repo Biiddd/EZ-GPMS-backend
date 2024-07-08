@@ -32,6 +32,9 @@ exports.updateScore = (req, res) => {
     readScore4,
     readEva,
 
+    // 答辩记录
+    defRecord,
+
     // 答辩小组
     defScore1,
     defScore2,
@@ -69,6 +72,8 @@ exports.updateScore = (req, res) => {
                     readScore3 = ?,
                     readScore4 = ?,
                     readEva = ?,
+                    
+                    defRecord = ?,
                     
                     defScore1 = ?,
                     defScore2 = ?,
@@ -108,6 +113,8 @@ exports.updateScore = (req, res) => {
       readScore3,
       readScore4,
       readEva,
+
+      defRecord,
 
       defScore1,
       defScore2,

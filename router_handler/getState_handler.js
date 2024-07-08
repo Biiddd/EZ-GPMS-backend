@@ -29,6 +29,7 @@ exports.getTeacherState = (req, res) => {
          sc.midScore,
          sc.teachScore,
          sc.readScore,
+         sc.defRecord,
          sc.defScore,
          sc.finalScore,
          sc.finalEva,
@@ -59,7 +60,8 @@ exports.getTeacherState = (req, res) => {
               teacherState: 'cantSignTransScore',
               teacherStateCode: 0,
               showForm: true,
-              disableForm: true
+              disableForm: true,
+              showUnAuthorized: false
             }
           });
           break;
@@ -68,7 +70,7 @@ exports.getTeacherState = (req, res) => {
             code: 200403,
             msg: '您无权对该项进行评分',
             data: {
-              teacherState: 'signTransScore',
+              teacherState: 'noAuth',
               teacherStateCode: 0,
               showForm: false,
               showUnAuthorized: true
@@ -86,7 +88,8 @@ exports.getTeacherState = (req, res) => {
               teacherState: 'signTransScore',
               teacherStateCode: 0,
               showForm: true,
-              disableForm: false
+              disableForm: false,
+              showUnAuthorized: false
             }
           });
           break;
@@ -95,7 +98,7 @@ exports.getTeacherState = (req, res) => {
             code: 200403,
             msg: '您无权对该项进行评分',
             data: {
-              teacherState: 'signTransScore',
+              teacherState: 'noAuth',
               teacherStateCode: 0,
               showForm: false,
               showUnAuthorized: true
@@ -108,12 +111,13 @@ exports.getTeacherState = (req, res) => {
         if (teacher_type === '组长') {
           res.status(200).json({
             code: 20041,
-            msg: '开题文件未上传，无法评分',
+            msg: '学生开题报告未上传，无法评分',
             data: {
               teacherState: 'cantSignStartScore',
               teacherStateCode: 0,
               showForm: true,
-              disableForm: true
+              disableForm: true,
+              showUnAuthorized: false
             }
           });
           break;
@@ -122,7 +126,7 @@ exports.getTeacherState = (req, res) => {
             code: 200403,
             msg: '您无权对该项进行评分',
             data: {
-              teacherState: 'signTransScore',
+              teacherState: 'noAuth',
               teacherStateCode: 0,
               showForm: false,
               showUnAuthorized: true
@@ -135,12 +139,13 @@ exports.getTeacherState = (req, res) => {
         if (teacher_type === '组长') {
           res.status(200).json({
             code: 20050,
-            msg: '开题报告已上传，请评分',
+            msg: '学生开题报告已上传，请评分',
             data: {
               teacherState: 'signStartScore',
               teacherStateCode: 1,
               showForm: true,
-              disableForm: false
+              disableForm: false,
+              showUnAuthorized: false
             }
           });
           break;
@@ -149,7 +154,7 @@ exports.getTeacherState = (req, res) => {
             code: 200403,
             msg: '您无权对该项进行评分',
             data: {
-              teacherState: 'signTransScore',
+              teacherState: 'noAuth',
               teacherStateCode: 1,
               showForm: false,
               showUnAuthorized: true
@@ -167,7 +172,8 @@ exports.getTeacherState = (req, res) => {
               teacherState: 'cantSignMidScore',
               teacherStateCode: 2,
               showForm: true,
-              disableForm: true
+              disableForm: true,
+              showUnAuthorized: false
             }
           });
           break;
@@ -176,7 +182,7 @@ exports.getTeacherState = (req, res) => {
             code: 200403,
             msg: '您无权对该项进行评分',
             data: {
-              teacherState: 'signTransScore',
+              teacherState: 'noAuth',
               teacherStateCode: 2,
               showForm: false,
               showUnAuthorized: true
@@ -196,7 +202,8 @@ exports.getTeacherState = (req, res) => {
               teacherState: 'SignMidScore',
               teacherStateCode: 2,
               showForm: true,
-              disableForm: false
+              disableForm: false,
+              showUnAuthorized: false
             }
           });
           break;
@@ -205,7 +212,7 @@ exports.getTeacherState = (req, res) => {
             code: 200403,
             msg: '您无权对该项进行评分',
             data: {
-              teacherState: 'signTransScore',
+              teacherState: 'noAuth',
               teacherStateCode: 2,
               showForm: false,
               showUnAuthorized: true
@@ -215,150 +222,193 @@ exports.getTeacherState = (req, res) => {
         }
 
       case result[0].final_file === null:
-        if (teacher_type === '指导教师'){
-        res.status(200).json({
-          code: 20041,
-          msg: '终稿文件未上传，无法评分',
-          data: {
-            teacherState: 'cantSignTeachScore',
-            teacherStateCode: 3,
-            showForm: true,
-            disableForm: true
-          }
-        });
-        break;
-      }
-      else {
-        res.status(200).json({
-          code: 200403,
-          msg: '您无权对该项进行评分',
-          data: {
-            teacherState: 'signTransScore',
-            teacherStateCode: 3,
-            showForm: false,
-            showUnAuthorized: true
-          }
-        });
-        break;
-      }
+        if (teacher_type === '指导教师') {
+          res.status(200).json({
+            code: 20041,
+            msg: '终稿文件未上传，无法评分',
+            data: {
+              teacherState: 'cantSignTeachScore',
+              teacherStateCode: 3,
+              showForm: true,
+              disableForm: true,
+              showUnAuthorized: false
+            }
+          });
+          break;
+        } else {
+          res.status(200).json({
+            code: 200403,
+            msg: '您无权对该项进行评分',
+            data: {
+              teacherState: 'noAuth',
+              teacherStateCode: 3,
+              showForm: false,
+              showUnAuthorized: true
+            }
+          });
+          break;
+        }
 
       case result[0].final_file !== null && result[0].teachScore === null:
-       if (teacher_type === '指导教师')
-      {
-        res.status(200).json({
-          code: 20041,
-          msg: '终稿文件已上传，请评分',
-          data: {
-            teacherState: 'SignTeachScore',
-            teacherStateCode: 3,
-            showForm: true,
-            disableForm: false
-          }
-        });
-        break;
-      }
-      else {
-        res.status(200).json({
-          code: 200403,
-          msg: '您无权对该项进行评分',
-          data: {
-            teacherState: 'signTransScore',
-            teacherStateCode: 3,
-            showForm: false,
-            showUnAuthorized: true
-          }
-        });
-        break;
-      }
+        if (teacher_type === '指导教师') {
+          res.status(200).json({
+            code: 20041,
+            msg: '终稿文件已上传，请评分',
+            data: {
+              teacherState: 'SignTeachScore',
+              teacherStateCode: 3,
+              showForm: true,
+              disableForm: false,
+              showUnAuthorized: false
+            }
+          });
+          break;
+        } else {
+          res.status(200).json({
+            code: 200403,
+            msg: '您无权对该项进行评分',
+            data: {
+              teacherState: 'noAuth',
+              teacherStateCode: 3,
+              showForm: false,
+              showUnAuthorized: true
+            }
+          });
+          break;
+        }
 
       case result[0].teachScore !== null && result[0].readScore === null:
-        if(teacher_type==='小组秘书兼评阅教师'){
-        res.status(200).json({
-          code: 20041,
-          msg: '指导老师评分完成，请评分',
-          data: {
-            teacherState: 'SignReadScore',
-            teacherStateCode: 4,
-            showForm: true,
-            disableForm: false
-          }
-        });
-        break;
-      }else {
-        res.status(200).json({
-          code: 200403,
-          msg: '您无权对该项进行评分',
-          data: {
-            teacherState: 'signTransScore',
-            teacherStateCode: 4,
-            showForm: false,
-            showUnAuthorized: true
-          }
-        });
-        break;
-      }
-
+        if (teacher_type === '小组秘书兼评阅教师') {
+          res.status(200).json({
+            code: 20041,
+            msg: '指导老师评分完成，请评分',
+            data: {
+              teacherState: 'SignReadScore',
+              teacherStateCode: 4,
+              showForm: true,
+              disableForm: false,
+              showUnAuthorized: false
+            }
+          });
+          break;
+        } else {
+          res.status(200).json({
+            code: 200403,
+            msg: '您无权对该项进行评分',
+            data: {
+              teacherState: 'noAuth',
+              teacherStateCode: 4,
+              showForm: false,
+              showUnAuthorized: true
+            }
+          });
+          break;
+        }
 
       case result[0].readScore !== null &&
         result[0].defenseApply_file === null &&
-        result[0].defScore === null:
+        result[0].defRecord === null:
         res.status(200).json({
           code: 20041,
-          msg: '学生未上传答辩申请文件，无法评分',
+          msg: '学生未上传答辩申请文件，无法填写答辩记录',
           data: {
-            teacherState: 'cantSignDefScore',
+            teacherState: 'cantSignDefRecord',
             teacherStateCode: 5,
             showForm: true,
-            disableForm: true
+            disableForm: true,
+            showUnAuthorized: false
           }
         });
         break;
 
-      case result[0].defenseApply_file === null && result[0].defScore === null:
-        res.status(200).json({
-          code: 20041,
-          msg: '学生未上传答辩申请文件，无法评分',
-          data: {
-            teacherState: 'cantSignDefScore',
-            teacherStateCode: 5,
-            showForm: true,
-            disableForm: true
-          }
-        });
-        break;
+      case result[0].defenseApply_file !== null && result[0].defRecord === null:
+        if (teacher_type === '小组秘书兼评阅教师') {
+          res.status(200).json({
+            code: 20041,
+            msg: '学生已上传答辩申请文件，请填写答辩记录',
+            data: {
+              teacherState: 'SignDeRecord',
+              teacherStateCode: 5,
+              showForm: true,
+              disableForm: false,
+              showUnAuthorized: false
+            }
+          });
+          break;
+        } else {
+          res.status(200).json({
+            code: 200403,
+            msg: '您无权对该项进行评分',
+            data: {
+              teacherState: 'noAuth',
+              teacherStateCode: 5,
+              showForm: false,
+              showUnAuthorized: true
+            }
+          });
+          break;
+        }
 
-      case result[0].defenseApply_file !== null && result[0].defScore === null:
-        res.status(200).json({
-          code: 20041,
-          msg: '学生已上传上传答辩申请文件，请评分',
-          data: {
-            teacherState: 'SignDefScore',
-            teacherStateCode: 5,
-            showForm: true,
-            disableForm: false
-          }
-        });
-        break;
+      case result[0].defRecord !== null && result[0].defScore === null:
+        if (teacher_type === '组长') {
+          res.status(200).json({
+            code: 20041,
+            msg: '秘书已填写答辩记录，请填写答辩评分',
+            data: {
+              teacherState: 'SignDefScore',
+              teacherStateCode: 6,
+              showForm: true,
+              disableForm: false
+            }
+          });
+          break;
+        } else {
+          res.status(200).json({
+            code: 200403,
+            msg: '您无权对该项进行评分',
+            data: {
+              teacherState: 'noAuth',
+              teacherStateCode: 6,
+              showForm: false,
+              showUnAuthorized: true
+            }
+          });
+          break;
+        }
 
       case result[0].defScore !== null && result[0].finalEva === null:
-        res.status(200).json({
-          code: 20041,
-          msg: '打分已完成，请填写最终评价',
-          data: {
-            teacherState: 'SignFinalEva',
-            teacherStateCode: 6,
-            showForm: true,
-            disableForm: false
-          }
-        });
-        break;
+        if (teacher_type === '组长') {
+          res.status(200).json({
+            code: 20041,
+            msg: '打分已完成，请填写最终评价',
+            data: {
+              teacherState: 'SignFinalEva',
+              teacherStateCode: 7,
+              showForm: true,
+              disableForm: false
+            }
+          });
+          break;
+        } else {
+          res.status(200).json({
+            code: 200403,
+            msg: '您无权对该项进行评分',
+            data: {
+              teacherState: 'noAuth',
+              teacherStateCode: 7,
+              showForm: false,
+              showUnAuthorized: true
+            }
+          });
+          break;
+        }
       case result[0].finalEva !== null:
         res.status(200).json({
           code: 20041,
           msg: '该学生评分已完成',
           data: {
             teacherState: 'SignFinalEva',
-            teacherStateCode: 6,
+            teacherStateCode: 7,
             showForm: false,
             disableForm: null,
             showEnd: true
